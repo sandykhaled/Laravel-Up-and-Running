@@ -58,7 +58,9 @@ return [
  ],
 ];
 ```
-To Access Key in your project 
+After defining the configuration item, you can easily reference it anywhere within your application <br/>
+code by using the config() function. For example, in a controller or other parts of your app,<br/>
+you can access the Bugsnag API key as follows:
 ```
 $bugsnag = new Bugsnag(config('services.bugsnag.key'));
 
