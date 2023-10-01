@@ -48,3 +48,13 @@ also define its PHP dependencies
 
 7.phpunit.xml <br/>
 A configuration file for PHPUnit, the tool Laravel uses for testing out of the box.
+
+**Note**
+```
+// config/services.php
+return [
+ 'bugsnag' => [
+ 'key' => env('BUGSNAG_API_KEY'), // Read the value from the .env file
+ ],
+];
+```
