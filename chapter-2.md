@@ -41,4 +41,7 @@
 
 5. Composer is a dependency manager for PHP
    
-   
+6.composer.json VS composer.lock
+Configuration files for Composer; composer.json is user-editable and com‐
+poser.lock is not. These files share some basic information about the project and
+also define its PHP dependencies   
