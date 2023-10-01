@@ -65,3 +65,14 @@ you can access the Bugsnag API key as follows:
 $bugsnag = new Bugsnag(config('services.bugsnag.key'));
 
 ```
+Now we are in .env file <br/>
+APP_KEY if it is an empty <br/>
+use this command
+```
+ php artisan key:generate
+```
+APP_DEBUG <br/>
+A Boolean determining whether the users of this instance of your application
+should see debug errors—great for local and staging environments, terrible for
+production.
+
