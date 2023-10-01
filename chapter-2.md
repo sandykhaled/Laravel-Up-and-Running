@@ -72,7 +72,12 @@ use this command
  php artisan key:generate
 ```
 APP_DEBUG <br/>
-A Boolean determining whether the users of this instance of your application
-should see debug errors—great for local and staging environments, terrible for
-production.
+A Boolean determining whether the users of this instance of your application <br/>
+should see debug errors—great for local and staging environments, terrible for <br/>
+production. <br/>
+by default : 
+```
+APP_DEBUG=true
+
+```
 
