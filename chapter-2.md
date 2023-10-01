@@ -22,6 +22,7 @@
 10. ctype_cntrl($text) //control characters
 11. ctype_xdigit($text) //hexadecimal digits
 
+
 3. json php extension
 
 **functions**
@@ -34,9 +35,9 @@
 
 **functions**
 
-1.bcadd($num1,$num2,$scale)
-2.bccomp($num1$num2,$scale)
-2.bcmode($num2,$num2,$scale)
+1. bcadd($num1,$num2,$scale)
+2. bccomp($num1$num2,$scale)
+2. bcmode($num2,$num2,$scale)
 
 5. Composer is a dependency manager for PHP
    
