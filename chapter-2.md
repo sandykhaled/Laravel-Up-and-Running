@@ -58,3 +58,8 @@ return [
  ],
 ];
 ```
+To Access Key in your project 
+```
+$bugsnag = new Bugsnag(config('services.bugsnag.key'));
+
+```
