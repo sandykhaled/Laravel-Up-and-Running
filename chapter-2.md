@@ -41,7 +41,10 @@
 
 5. Composer is a dependency manager for PHP
    
-6.composer.json VS composer.lock
+6.composer.json VS composer.lock <br/>
 Configuration files for Composer; composer.json is user-editable and com‐
 poser.lock is not. These files share some basic information about the project and
 also define its PHP dependencies   
+
+7.phpunit.xml <br/>
+A configuration file for PHPUnit, the tool Laravel uses for testing out of the box.
