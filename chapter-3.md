@@ -28,8 +28,9 @@ including something called middleware. When your route closure
 or controller method is done, it’s not time to send the output to the
 browser yet; returning the content allows it to continue flowing
 through the response stack and the middleware before it is
-returned back to the user    
-4.  to avoid facades
+returned back to the user   
+<br/>
+4.  **to avoid facades**
 ```
 $router->get('/', function () {
  return 'Hello, World!';
