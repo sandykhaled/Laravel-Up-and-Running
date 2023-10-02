@@ -10,9 +10,9 @@
    5. HEAD
    6. OPTIONS
    7. PATCH
-    **Note** are pretty much never used in
-normal web development 
    8. TRACE
    9. CONNECT
-
+       
+ **Note** the last two are pretty much never used in
+normal web development 
     
