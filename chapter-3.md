@@ -14,9 +14,8 @@
    9. CONNECT
        
  **Note** the last two are pretty much never used in
-normal web development 
-2.
-**What’s a Closure?**
+normal web development <br/>
+2. **What’s a Closure?**
 Closures are PHP’s version of anonymous functions. A closure is a function that you
 can pass around as an object, assign to a variable, pass as a parameter to other func‐
 tions and methods, or even serialize.
