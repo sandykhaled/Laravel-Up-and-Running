@@ -20,6 +20,7 @@ Closures are PHP’s version of anonymous functions. A closure is a function tha
 can pass around as an object, assign to a variable, pass as a parameter to other func‐
 tions and methods, or even serialize.
 <br/>
+<br/>
 3. **why I use return instead of echo ?**
 <br/>
 there are a lot of wrappers around Laravel’s request and response cycle,
@@ -28,3 +29,16 @@ or controller method is done, it’s not time to send the output to the
 browser yet; returning the content allows it to continue flowing
 through the response stack and the middleware before it is
 returned back to the user    
+4.  to avoid facades
+```
+$router->get('/', function () {
+ return 'Hello, World!';
+});
+```
+Instead of
+```
+Route::get('/', function () {
+ return 'Hello, World!';
+});
+
+```
