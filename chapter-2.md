@@ -7,6 +7,8 @@
 1. token_get_all(); => conevert string code into array of tokens.
 2. token_name(); => return name of token.
 <br\>
+
+
 2. ctype php extension => check character type of string
    
 **functions**
