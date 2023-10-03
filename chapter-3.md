@@ -81,6 +81,7 @@ Route::get('posts/{id}','PostController@show')->name('posts.show');
 Another Way
 ```
 Route::get('posts/{id}',['as'=>'posts.show','uses'=>'PostController@show']);
+```
 Or Using Functions
 ```
 Route::get('posts/{id}',['as','posts.show',function(){
