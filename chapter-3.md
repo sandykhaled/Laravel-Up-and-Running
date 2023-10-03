@@ -70,5 +70,20 @@ Route::get('post/{id}',function($id){
 Route::get('users/{user}',function($user){
 })->where('user','[a-zA-Z]+');
 ```
+```
 Route::get('posts/{id}/{slug}', function ($id, $slug) {
 })->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
+```
+Named Routes
+```
+Route::get('posts/{id}','PostController@show')->name('posts.show');
+```
+Another Way
+```
+Route::get('posts/{id}',['as'=>'posts.show','uses'=>'PostController@show']);
+Or Using Functions
+```
+Route::get('posts/{id}',['as','posts.show',function(){
+//code
+}]);
+```
