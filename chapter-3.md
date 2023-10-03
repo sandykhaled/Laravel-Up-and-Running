@@ -45,3 +45,9 @@ Route::get('/', function () {
 });
 
 ```
+To Handle get or post
+
+```
+Route::match(['get','post'],function(){
+});
+```
