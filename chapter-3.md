@@ -51,3 +51,24 @@ To Handle get or post
 Route::match(['get','post'],function(){
 });
 ```
+Route Parameter 
+```
+Route::get('posts/{id}/edit',function($id){
+});
+```
+your parameter can be optional by including a question mark (?) , in this case you must provide a default value for the route’s corresponding variable.
+```
+Route::get('posts/{id?}',function($id=1233){
+});
+```
+Using Regular Expression
+```
+Route::get('post/{id}',function($id){
+})->where('id','[0-9]+');
+```
+```
+Route::get('users/{user}',function($user){
+})->where('user','[a-zA-Z]+');
+```
+Route::get('posts/{id}/{slug}', function ($id, $slug) {
+})->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
