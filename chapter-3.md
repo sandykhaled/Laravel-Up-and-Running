@@ -167,4 +167,20 @@ before laravel 5.6
 ```
 Route::any('{anything}','CatchAllController')->where('anything','*');
 ```
+**Subdomain Routes**
+is the same like prefix routes there are 2 primary uses for this , first when you want present different sections of the application
+```
+Route::domain('api/example.com')->group(function(){
+Route::get('/',function(){
+});
+});
+```
+second when you have parameter in your routes
+```
+Route::domain('{api}/example.com')->group(function(){
+Route::get('/',function(){
+});
+});
+```
+
 
