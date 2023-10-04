@@ -88,3 +88,83 @@ Route::get('posts/{id}',['as','posts.show',function(){
 //code
 }]);
 ```
+Grouping Routes<br/>
+share a particular characteristic—a certain authentication
+requirement, a path prefix, or perhaps a controller namespace
+```
+Route::group(finction(){
+Route::get('hello',function(){
+return 'hello';
+});
+Route::get('world',function(){
+return 'world';
+});
+});
+```
+Use Middleware in group routes
+```
+Route::middleware->group(function(){
+Route::get('dashboard',function(){
+return view('dashboard');
+});
+});
+```
+before laravel 5.2 
+```
+Route::group(['middleware','auth'],function(){
+Route:get('dashboard',function(){
+return view('dashboard');
+});
+});
+```
+It is clearer to use middleware in your controller instead of using in route , you can use it in constructor method of controller <br\>
+**Note** use $this->middleware because it is used in controller
+```
+public function __construct(){
+$this->middleware('auth');
+$this->middleware('auth')->only('view');
+$this->middleware('auth')->expect('view');
+}
+```
+If you want to limit number of times that user accessing any give route(s)  it is knowon as **Rate limiting** you can use throttle that takes 2 parameters <br/> the first is the number of tries a user is permitted 
+<br/> the second is the number of minutes to wait before resetting the
+attempt count
+```
+Route::middleware(['auth','throttle:60,1'])->group(function(){
+Route::get('profile',function(){
+});
+});
+```
+**Dymanic Rate Limiting**
+first parameter will pull the tries count instead of tries count as the first parameter , we will pass the name of attribute of elqouent 
+<br/>like this
+```
+Route::middleware(['auth','throttle:plan_rate_limit,1'])->group(function(){
+Route::get('profile',function(){
+});
+});
+```
+**Note** plan_rate_limit is an attribute in your model<br/>
+**prefix group**
+if your route share a segment of path <br/>
+```
+Route::prefix('dashboard')->group(function(){
+Route::get('users',function(){
+//dashboard/users
+});
+Route::get('/',function(){
+//dashboard/
+});
+});
+```
+**Fallback routes**
+use this when all routes don't match the incoming requests {eg. return page 404 }**Note** this route must be the end of your application
+```
+Route::fallback(function(){
+});
+```
+before laravel 5.6 
+```
+Route::any('{anything}','CatchAllController')->where('anything','*');
+```
+
