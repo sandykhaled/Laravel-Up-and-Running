@@ -103,7 +103,7 @@ return 'world';
 ```
 Use Middleware in group routes
 ```
-Route::middleware->group(function(){
+Route::middleware('auth')->group(function(){
 Route::get('dashboard',function(){
 return view('dashboard');
 });
