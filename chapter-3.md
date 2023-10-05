@@ -184,7 +184,14 @@ Route::get('/users',function($account,$id){
 });
 });
 ```
-**Note** parameter must be the first parmeter in method
+**Note** parameter must be the first parmeter in method <br/>
+May be controller share the same namespace in this case , we can use namespace route
+```
+Route::namespace('Dashboard')->group(function(){
+Route::get('users',['UserController','index'])
+//app/Http/Dashboard/UserController
+});
+```
 
 
 
