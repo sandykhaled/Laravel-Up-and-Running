@@ -228,6 +228,7 @@ public function unsubscribe($subscriber)
 Route::get('send-mails',['SignatureController','send']); // this return unique url can't be modify
 Route::get('unsubscribe/{subscriber}/now',['SignatureController','unsubscribe'])->name('unsubscribe')->middleware('signed');
 ```
+**Note** For more details [signed Route] (https://www.youtube.com/watch?v=tR9VHoj_kJM)  
 
 
 
