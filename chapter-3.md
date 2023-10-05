@@ -177,10 +177,14 @@ Route::get('/',function(){
 ```
 second when you have parameter in your routes
 ```
-Route::domain('{api}/example.com')->group(function(){
-Route::get('/',function(){
+Route::domain('{account}/example.com')->group(function(){
+Route::get('/',function($account){
+});
+Route::get('/users',function($account,$id){
 });
 });
 ```
+**Note** parameter must be the first parmeter in method
+
 
 
