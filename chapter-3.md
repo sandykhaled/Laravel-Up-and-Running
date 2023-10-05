@@ -234,9 +234,10 @@ Route::get('unsubscribe/{subscriber}/now',['SignatureController','unsubscribe'])
 <hr>
 it's time for talking about View <br/>
 there are 3 ways to use view:
-1. view(); // it is popular
-2. View::make();
-3. inject your code Illuminate\View\ViewFactory
+ 1. view(); // it is popular
+ 2. View::make();
+ 3. inject your code Illuminate\View\ViewFactory
+
 ```
 Route::get('show',function(){
 return view('showUsers');
