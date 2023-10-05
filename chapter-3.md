@@ -231,9 +231,8 @@ Route::get('send-mails',['SignatureController','send']); // this return unique u
 Route::get('unsubscribe/{subscriber}/now',['SignatureController','unsubscribe'])->name('unsubscribe')->middleware('signed');
 ```
 **Note** For more details [signed Route](https://www.youtube.com/watch?v=tR9VHoj_kJM)  [Laravel Documatation](https://laravel.com/docs/10.x/urls#validating-signed-route-requests)
-<hr>
 it's time for talking about View <br/>
-there are 3 ways to use view:
+**there are 3 ways to use view**
  1. view(); // it is popular
  2. View::make();
  3. inject your code Illuminate\View\ViewFactory
