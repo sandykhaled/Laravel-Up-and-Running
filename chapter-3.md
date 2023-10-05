@@ -207,6 +207,8 @@ allows Laravel to verify that the URL has not been modified since it was created
 **How to create this**
 1. at first make:controller SignatureController
 ```
+use Illuminate\Support\Facades\URL;
+
 class SignatureController extends Controller
 {
 public function send(){
@@ -228,7 +230,7 @@ public function unsubscribe($subscriber)
 Route::get('send-mails',['SignatureController','send']); // this return unique url can't be modify
 Route::get('unsubscribe/{subscriber}/now',['SignatureController','unsubscribe'])->name('unsubscribe')->middleware('signed');
 ```
-**Note** For more details [signed Route] (https://www.youtube.com/watch?v=tR9VHoj_kJM)  
+**Note** For more details [signed Route](https://www.youtube.com/watch?v=tR9VHoj_kJM)  
 
 
 
