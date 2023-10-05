@@ -189,9 +189,46 @@ May be controller share the same namespace in this case , we can use namespace r
 ```
 Route::namespace('Dashboard')->group(function(){
 Route::get('users',['UserController','index'])
-//app/Http/Dashboard/UserController
+//app/Http/Dashboard/controllers/UserController
 });
 ```
+Route Prefix name
+```
+Route::name('users.')->prefix('users')->group(function(){
+Route::name('admins')->prefix('admins')->group(function(){
+Route::get('{id}',function(){
+//users.admins.{id}
+})->name('show');
+});
+});
+```
+**Signed Route**
+allows Laravel to verify that the URL has not been modified since it was created.<br/> Signed URLs are especially useful for routes that are publicly accessible yet need a layer of protection against URL manipulation.
+**How to create this**
+1. at first make:controller SignatureController
+```
+class SignatureController extends Controller
+{
+public function send(){
+//return URL::signedRoute('unsubscribe',['subscriber'=>1]);
+return URL::temporySignedRoute('unsubscribe',now()->addSeconds(15),['subscriber'=>1]); //work for one time
+}
+public function unsubscribe($subscriber)
+{
+  if(!request->hasValidSignatrue){
+    abort('403');
+   }
+  return User::find($subscriber)->name;
+ //return $subscriber;
+}
+}
+```
+2. in routes/web.php
+```
+Route::get('send-mails',['SignatureController','send']); // this return unique url can't be modify
+Route::get('unsubscribe/{subscriber}/now',['SignatureController','unsubscribe'])->name('unsubscribe')->middleware('signed');
+```
+
 
 
 
