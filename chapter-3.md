@@ -242,7 +242,9 @@ Route::get('show',function(){
 return view('showUsers');
 });
 ```
-with variable
+
+with variables
+
 ```
 use Model/User;
 Route::get('showUser',function(){
