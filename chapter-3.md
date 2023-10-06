@@ -288,5 +288,6 @@ submitted.
 public function store(Request $request){
 }
 ```
-**Note** php artisan route:list
+**Note** php artisan route:list <br/>
+//you’ll get a listing of all of the available routes <br/>
 
