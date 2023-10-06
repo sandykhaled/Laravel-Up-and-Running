@@ -265,5 +265,15 @@ Or
 Route::view('/', 'welcome', ['User' => 'Michael']);
 
 ```
+May be you want to share the same data in all views in this case you can use in AppServiceProvider
+```
+class AppServiceProvider extends ServiceProvider
+{
+public function boot(){
+View::share(['key','value'])
+}
+}
+```
+
 
 
