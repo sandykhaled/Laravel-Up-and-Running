@@ -274,6 +274,19 @@ View::share(['key','value'])
 }
 }
 ```
-
-
+Create method in Controller
+```
+public function create(Request $request){
+Task::create($request->only(['title','description']));
+// only() method to pull just the title and description fields the user
+submitted.
+}
+```
+**typehint**
+ - means putting the name of a class or interface in front of a variable in a method signature
+```
+public function store(Request $request){
+}
+```
+**Note** php artisan route:list
 
