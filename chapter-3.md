@@ -290,4 +290,26 @@ public function store(Request $request){
 ```
 **Note** php artisan route:list <br/>
 //you’ll get a listing of all of the available routes <br/>
+Make controller with API the same of the original resource controller without create , edit methods
+```
+php artisan make:controller ApiResourceController --api
+```
+in routes/web.php
+```
+Route::apiResource('Resources','ApiResourceController');
+```
+when a controller should only service a single
+route
+```
+//inside TaskController
+public function __invoke(){
+// 
+}
+```
+in routes/web.php
+````
+Route::post('update/{id}','TaskController')
+```
+
+**Route Model Binding**
 
