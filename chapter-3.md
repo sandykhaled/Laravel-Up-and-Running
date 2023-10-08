@@ -307,9 +307,21 @@ public function __invoke(){
 }
 ```
 in routes/web.php
-````
+```
 Route::post('update/{id}','TaskController')
 ```
-
 **Route Model Binding**
-
+1. Implicit
+```
+public function show($id){
+$task=Task::where('id',$id);
+return view('Tasks.show',compact('task'));
+}
+```
+Instead of the previous code "for shorter code"
+```
+public function show(Task $task){
+return view('Tasks.show',compact('task'));
+}
+```
+**Note**(Laravel Daily Route Model Binding)[https://www.youtube.com/watch?v=6dEfxGLgevM]
