@@ -324,4 +324,26 @@ public function show(Task $task){
 return view('Tasks.show',compact('task'));
 }
 ```
-**Note**(Laravel Daily Route Model Binding)[https://www.youtube.com/watch?v=6dEfxGLgevM]
+**Note**  
+[Laravel Daily Route Model Binding](https://www.youtube.com/watch?v=6dEfxGLgevM)
+by default in url we search about id what if i search for name for example?
+<br/>
+->in this case ..  we use column key , and add this method to your model
+```
+public function RouteKeyName(){
+return 'column_name';
+}
+```
+or in routes/web.php
+```
+Route::get('tasks/{task:column_name}/update',['TaskController','update']);
+```
+**VIN**
+what if column_name not found ? this will return page not found in this case , we can use 
+The missing method accepts a closure that will be invoked if an implicitly bound model can not be found:
+```
+Route::get('tasks/{task:column_name}/update',['TaskController','update'])->missing(function(){
+return view('notfound');
+});
+
+```
