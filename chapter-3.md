@@ -347,3 +347,51 @@ return view('notfound');
 });
 
 ```
+**Route Cache**
+Using the route cache will drastically decrease the amount of time it takes to register all of your application's routes. if you add any new routes you will need to generate a fresh route cache. Because of this, you should only run the route:cache command during your project's deployment.
+<br/>
+```
+php artisan route:cache
+```
+you can delete cache
+```
+php artisan route:clear
+```
+**VIN**prefer not to use the previous command
+<br/>
+**Method spoofing**
+In laravel ,the method's form has only 2 verbs (Get , Post) what if i want to use another method like delete,put,patch?<br/>
+In this case<br/>
+```
+<form method ="post" action="#">
+@method('put') //recommanded
+//or
+<input type="hidden" value="put" name="_method">
+</form>
+```
+**CSRF**
+```
+<form method ="post" action="#">
+@csrf //recommanded
+//or
+<input type="hidden" value="<?= {{csrf_token()}}?>" name="_token">
+//or before 5.6
+{{csrf_filed}}
+</form>
+```
+In javascript ,there is another code for csrf
+```
+<meta name="csrf-token" id="token" value="<?php csrf_token()?>">
+```
+```
+// In jQuery:
+$.ajaxSetup({
+ headers: {
+ 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+ }
+});
+// With Axios:
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] =
+ document.head.querySelector('meta[name="csrf-token"]');
+```
+```
