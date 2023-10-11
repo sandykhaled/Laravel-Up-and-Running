@@ -394,4 +394,43 @@ $.ajaxSetup({
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] =
  document.head.querySelector('meta[name="csrf-token"]');
 ```
+Redirect
 ```
+Route::get('visit-link',function(){
+    return redirect('login');
+});
+Route::get('visit-link',function(){
+    return redirect()->to('login');
+});
+Route::get('visit-link',function(){
+Route::redirect('login');
+});
+Route::redirect('visit-link','login',{3rd parameter is optional is status code});
+```
+```
+return redirect()->route('con.index',['con'=>1]); // Nearly the same of redirect()->to() 
+```
+```
+return redirect()->back();
+//Or
+return back();
+```
+```
+Redirect::away("https://www.google.com");
+return redirect()->away('https://www.google.com')
+
+// Redirect to the "home" named route
+return Redirect::route('home');
+
+// Redirect to the same page (refresh the page)
+return Redirect::refresh();
+```
+```
+
+```
+**Abort**
+abort(status_code); <br/>
+abort_if(condition,'status_code'); => inside the parathness must assign to true <br/>
+abort_unless(condition,'status_code'); => inside the parathness mustn't assign to true <br/>
+
+
