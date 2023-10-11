@@ -429,8 +429,9 @@ return Redirect::refresh();
 
 ```
 **Abort**
+```
 abort(status_code); <br/>
 abort_if(condition,'status_code'); => inside the parathness must assign to true <br/>
 abort_unless(condition,'status_code'); => inside the parathness mustn't assign to true <br/>
-
+```
 
