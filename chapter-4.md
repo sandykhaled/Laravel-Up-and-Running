@@ -6,13 +6,14 @@ I will use <br/>
 @{{ name }} <br/>
 __________________
 **Control Structures**
-1. 
+<br/>
+1. <br/>
 @if($condition) <br/>
 @elseif($condition) <br/>
 @else <br/>
 @endif <br/>
 <br/>
-2. 
+2. <br/>
 @unless($condition) <br/>
 @endunless <br/>
 **Note** <br/>
