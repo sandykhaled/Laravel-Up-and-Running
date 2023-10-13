@@ -434,4 +434,25 @@ abort(status_code); <br/>
 abort_if(condition,'status_code'); => inside the parathness must assign to true <br/>
 abort_unless(condition,'status_code'); => inside the parathness mustn't assign to true <br/>
 ```
+**response**
+```
+return response()->file($pathToFile);
+ 
+return response()->file($pathToFile, $headers);
+```
+**Post Testing**
+```
+public function test_post_creates_new_assignment(){
+$this->post('/assignments',[
+'title'=>'assignment']);
+$this->assertDatabaseHas('/assignments',['title','assignment']);
+}
+```
+**Get Testing**
+```
+public function test_get_show_all_assignments(){
+Assignmnet::create(['title'=>'assignmnet']);
+$this->get('assignment')->assertSee('greate assignmnet');
+}
+```
 
