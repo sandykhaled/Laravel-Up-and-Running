@@ -1,13 +1,12 @@
 # Blade System
 
-**Echo**
+**Echo** <br/>
 {{ $variable }} or {! $variable !} <br/>
 **What if I want to print {{name}} ??** <br/>
 I will use <br/>
 @{{ name }} <br/>
 __________________
 **Control Structures**
-
 1. <br/>
 @if($condition) <br/>
 @elseif($condition) <br/>
