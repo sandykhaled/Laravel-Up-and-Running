@@ -30,7 +30,7 @@ _________________
 @foreach($invoices as $invoice)
 @endforeach
 _________
-**Template Inheritance**
+**Template Inheritance** <br/>
 @yield() <br/>
 @section() <br/>
 @show <br/>
@@ -49,7 +49,7 @@ _________
  </body> <br/>
 </html> <br/>
 
-**Example-2**
+**Example-2** <br/>
 @extends('layouts.master')<br/>
 @section('title', 'Dashboard')<br/>
 @section('content')<br/>
@@ -60,34 +60,61 @@ _________
  <script src="dashboard.js"></script><br/>
 @endsection<br/>
 
-**Note**
+**Note** <br>
 Use @show when you’re defining the place for a section, in the par‐
 ent template. Use @endsection when you’re defining the content
 for a template in a child template 
-**Note**
+_____________________
+**Note** <br/>
 use <br/>
 @section('title','Home Page') <br/>
 Instead of <br/>
 @section('title') <br/>
 Home Page <br/>
 @endsection <br/>
+_____________________
 **Note**
-In Parent Page <br/>
+**In Parent Page** <br/>
 @yield('home') <br/>
 @section('title') <br/>
 @show <br/>
 <br/>
-In Class Page <br/>
+**In Class Page** <br/>
 @extends('home') <br/>
 @section('title') <br/>
 @endsection (Or @stop) <br/>
 **Very Important Note** <br/>
+
 **In Parent Page** <br/>
+```
 @section('sidebar') <br/>
    This is the master sidebar. <br>
 @show <br>
+```
 **In Child Page**<br/>
+```
 @section('sidebar') <br/>
 @parent // Instead of write the body of parent again <br/>
 this is child's body <br/>
 @endsection <br/>
+```
+**Note** <br/>
+@include <br/>
+**In Home Page**
+```
+@include('sign-up-button', ['text' => 'See just how great it is'])
+
+```
+**In sign-up-button page**
+```
+{{$text}}
+```
+```
+{{-- Include a view if it exists --}}
+@includeIf('sidebars.admin', ['some' => 'data'])
+{{-- Include a view if a passed variable is truth-y --}}
+@includeWhen($user->isAdmin(), 'sidebars.admin', ['some' => 'data'])
+{{-- Include the first view that exists from a given array of views --}}
+@includeFirst(['customs.header', 'header'], ['some' => 'data'])
+
+```
