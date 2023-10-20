@@ -135,3 +135,29 @@ Forexample
 @each('view',$projects,'project','welcome');
 ```
 **Note  <br/> @each is not equal to @foreach**
+<br/> Example-2 <br/>
+**In jobController**
+```
+public function getJobs(){
+jobs=[
+['job1'=>'title1'],
+['job2'=>'title2']
+];
+return view('jobs.job',compact('jobs'));
+}
+```
+**In views/jobs/job.blade.php**
+```
+@each('jobs.getJob',$jobs,'job','jobs.notFind')
+```
+**In view/jobs/getJob.blade.php**
+```
+<div>
+{{$job['title']}}
+</div>
+```
+**Output**
+```
+title1
+title2
+```
