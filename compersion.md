@@ -134,4 +134,4 @@ In views/users
 This is sconaroi instead of create $users=User::all() in UserController that may be useful in some cases <br/>
 _________________________________
 
-(Source)[https://www.youtube.com/@codingwithstef6225]
+[Source](https://www.youtube.com/@codingwithstef6225)
