@@ -118,3 +118,20 @@ this is child's body <br/>
 @includeFirst(['customs.header', 'header'], ['some' => 'data'])
 
 ```
+what if i want to loop @include for 5 times ? <br/>
+in this case I will write @include() 5 times , but it's not a clean code <br/> 
+So we prefer to use @each
+```
+@each('page-name',$array-name,'var-name','optional-view-if-it-is-empty');
+```
+Forexample
+```
+@include('view')
+@foreach($projects as $project)
+{{$project}}
+@endforeach
+```
+```
+@each('view',$projects,'project','welcome');
+```
+**Note  <br/> @each is not equal to @foreach**
