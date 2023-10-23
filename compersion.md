@@ -71,17 +71,33 @@ _______________________________
 ```
 _______________________________
 Now you have multi script tag <script> in 'views/layouts/app.blade.php' But you want to add new script differs from one page to another
-**@stack & @push**
+**@stack & @push Vs @stack & @pretend** 
 ```
 //in resources/views/layouts/app.blade.php
+<script type="text/javascript" src="main.js">
+ </script>
 @stack('script')
 ```
 ```
 //in resources/view/users/user.blade.php
+//push in the bottom of stack
 @push('script')
  <script type="text/javascript" src="example.js">
  </script>
 @endpush
+```
+```
+//pust at the top of stack
+@pretend('script')
+ <script type="text/javascript" src="example-2.js">
+ </script>
+@endpretend
+```
+Output
+```
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="example-2.js"></script>
+<script type="text/javascript" src="example.js"></script>
 ```
 _______________________________
 **@json** 
