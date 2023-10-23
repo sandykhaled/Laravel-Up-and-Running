@@ -198,5 +198,45 @@ oops ! this is an alert
 </x-alert>
 ```
 _____________________________________
+**Let's create your own directive**
+In AppServiceProvider@boot
+```
+public function boot(){
+Blade::directive('role',function(){
+return auth()->user()->name;
+});
+}
+```
+In view
+```
+@role
+```
+In AppServiceProvider@boot
+```
+public function boot(){
+Blade::directive('admin',function(){
+return auth()->user()->name=="ali";
+});
+}
+```
+In view
+```
+@admin == @if(auth()->user()->name=="ali")
+yes
+@else
+No
+@endif
+```
+**With Parameters**
+```
+Blade::directive('role',function ($name){
+            echo "HEllO".$name ;
+        });
+```
+In view
+```
+@role('sara')
+```
+[custom blade directives](https://www.youtube.com/watch?v=2UO-8K_TnPc)
 [Source](https://www.youtube.com/@codingwithstef6225)
 [Slot&Commponent](https://www.youtube.com/watch?v=B-DTsHGbbTk)
