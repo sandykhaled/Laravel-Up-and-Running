@@ -34,5 +34,5 @@ view()->composer(['users','home'],\App\Http\ViewComposers\RecentPostsComposer::c
       $view->with('users',User::all());
         });
 ```
-(LaravelDaily)[https://www.youtube.com/watch?v=dX2tCE0g7AU]
+[LaravelDaily](https://www.youtube.com/watch?v=dX2tCE0g7AU)
 
