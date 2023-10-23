@@ -149,5 +149,45 @@ In views/users
 ```
 This is sconaroi instead of create $users=User::all() in UserController that may be useful in some cases <br/>
 _________________________________
+**@commponent & @slot**
+At first create component 
+```
+php artisan make:component Alert
+```
+//In Resources/views/components/Alert.blade.php **Single Slot**
+```
+<div>
+Alert Page
+<p>{{$slot}}</p>
+</div>
+```
+In Resources/views/home.blade.php
+```
+@commponent('commponents.alert')
+@slot
+<p>Green ALert in home page</p>
+@endslot
+@endcomponent
+```
+//In Resources/views/components/Alert.blade.php  **Multi Slots**
+```
+<div>
+Alert Page for mlti slots
+<div class="alert-title">{{$title}}</div>
+<div class="alert alert-danger">
+    {{ $slot }}
+</div>
+</div>
+```
+In Resources/views/home.blade.php
+```
+@commponent('commponents.alert')
+@slot('title')
+<p>Green ALert for title in home page</p>
+@endslot
+oops ! this is an alert
+@endcomponent
+```
 
 [Source](https://www.youtube.com/@codingwithstef6225)
+[Slot&Commponent](https://www.youtube.com/watch?v=B-DTsHGbbTk)
