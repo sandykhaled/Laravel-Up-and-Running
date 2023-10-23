@@ -188,6 +188,15 @@ In Resources/views/home.blade.php
 oops ! this is an alert
 @endcomponent
 ```
-
+**Another Way**
+```
+<x-alert> //Instaed of @component('components.alert')
+<x-slot:title> //Instead of @slot('title')
+<p>Green ALert for title in home page</p>
+</x-slot>
+oops ! this is an alert
+</x-alert>
+```
+_____________________________________
 [Source](https://www.youtube.com/@codingwithstef6225)
 [Slot&Commponent](https://www.youtube.com/watch?v=B-DTsHGbbTk)
