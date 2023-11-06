@@ -22,7 +22,8 @@ Schema::create('my_table', function (Blueprint $table) {
 ```
 3. **Boolean or Tinyint** <br/>
 
-For two genders (male and female) with no future additions, use **tinyint(1)** or **Boolean()** with 0 for female and 1 for male. When expansion is needed, modify the schema to an **ENUM**.
+      For two genders (male and female) with no future additions, use **tinyint(1)** or **Boolean()** with 0 for female and 1 for male. When expansion is 
+      needed, modify the schema to an **ENUM**.
 
 3. **string(colName, optional length)**
 4. **char(colName,optional length)**
