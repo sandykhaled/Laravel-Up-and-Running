@@ -37,7 +37,7 @@ Schema::create('my_table', function (Blueprint $table) {
    ``` 
    
     **precision** specifies the total number of digits a DECIMAL column can hold. It controls the maximum digits, including those after the decimal 
-       point. For example, it allows values like **123.45** or **12.345**.
+       point. For example, it allows values like **123.45** or **12.345**. <br/>
     **scale** specifies the number of digits to the right of the decimal point. For example, it allows values like **123.45**, not 12.345.   
 
 7. **double(colName, total digits, digits after decimal)**
