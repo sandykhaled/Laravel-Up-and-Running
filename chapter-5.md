@@ -29,15 +29,16 @@ Schema::create('my_table', function (Blueprint $table) {
 4. **char(colName,optional length)**
 5. **binary(colName)**
 
-This column will store binary data, such as **images**, **files**, or any **binary data** you need to store in your database.
+     This column will store binary data, such as **images**, **files**, or any **binary data** you need to store in your database.
 
 6. **decimal(colName,precision,scale)** <br/>
    ```
    decimal("rate",5,2)
    ``` 
    
- **precision** specifies the total number of digits a DECIMAL column can hold. It controls the maximum digits, including those after the decimal point. For example, it allows values like **123.45** or **12.345**.
- **scale** specifies the number of digits to the right of the decimal point. For example, it allows values like **123.45**, not 12.345.   
+    **precision** specifies the total number of digits a DECIMAL column can hold. It controls the maximum digits, including those after the decimal 
+       point. For example, it allows values like **123.45** or **12.345**.
+    **scale** specifies the number of digits to the right of the decimal point. For example, it allows values like **123.45**, not 12.345.   
 
 7. **double(colName, total digits, digits after decimal)**
 8. **datetime(colName)**
