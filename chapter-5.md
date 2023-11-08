@@ -146,19 +146,103 @@ Schema::create('users', function (Blueprint $table) {
         });
    ```
  3. **renameColumn()**
- At first create **new migration** as rename_name_column
+    <br/>
+    At first In create migration **create_posts_migration**
+    ```
+    Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+    ```
+    <br/>
+  then create **new migration** as **rename_name_column_in_posts_table**
 ``` public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->renameColumn('name', 'to'); // Correct usage to rename 'name' to 'to'
+            $table->renameColumn('name', 'names'); // Correct usage to rename 'name' to 'to'
         });
     }
 
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->renameColumn('to', 'name'); // Reverse the column name change
+            $table->renameColumn('names', 'name'); // Reverse the column name change
         });
     }
 
-```    
+```
+4. **dropColumn()**
+   create **new migration** as **remove_name_column_from_posts_table**
+```
+   Schema::table('contacts', function (Blueprint $table)
+{
+ $table->dropColumn('votes');
+});
+```
+**Note If you try to drop or modify multiple columns within a single
+migration closure , you can use one  Schema::table() within up() instead of creating one for each drop or modify**
+```
+public function up()
+{
+ Schema::table('contacts', function (Blueprint $table)
+ {
+ $table->dropColumn('is_promoted');
+ });
+ Schema::table('contacts', function (Blueprint $table)
+ {
+ $table->dropColumn('alternate_email');
+ });
+}
+```
+______________________________
+**unique() & primary() & index()**
+```
+$table->primary('primary_id'); // Primary key; **unnecessary if used increments() or bigIncrements() or id()**
+$table->primary(['first_name', 'last_name']); // Composite keys
+$table->unique('email'); // Unique index
+$table->index('amount'); // Basic index
+```
+**dropUnique() & dropPrimary() & dropIndex()**
+create new migration **drop_primary_from_posts_table**
+```
+ public function up(): void
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropPrimary('name');
+
+        });
+    }
+```
+**Note : put column in [] in dropUnique() & dropIndex()**
+```
+ $table->dropUnique(['name']);
+```
+```
+ $table->dropIndex(['name']);
+```
+**Or**
+```
+ $table->dropUnique('posts_name_unique']);
+```
+```
+ $table->dropIndex('posts_name_index']);
+```
+______________
+**foreign key**
+```
+$table->foreign('user_id')->references('id')->on('users');
+```
+Or 
+```
+$table->foreignId('user_id')->constrained();
+```
+**Drop foreign key**
+```
+ $table->dropForeign('posts_user_id_foreign'); //posts == table name
+```
+or **put foreign key in []**
+```
+$table->dropForeign(['user_id']);
+```
+___________________
