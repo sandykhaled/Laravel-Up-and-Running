@@ -107,7 +107,58 @@ $table->string('email')->unique();
    ```
    $table->primary('ssn');
    //or
-   $table->integer('ssn')->primary;
+   $table->integer('ssn')->primary();
    ```   
+8. **index()**
    
-   
+   method can improve the speed of SELECT queries but might slightly slow down INSERT, UPDATE, or DELETE operations because the index needs to be updated.  
+__________________
+**Modifying columns**
+1. **change()**
+Now .. I have this column and I want to change datatype should I **refresh** my migration? of course **No**
+```
+Schema::create('users', function (Blueprint $table) {
+            $table->text('name');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('name',200)->change();
+        });
+```
+**Example-2**
+```
+        Schema::create('users', function (Blueprint $table) {
+            $table->string('name');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('name')->default('ali')->change();
+        });
+```
+
+2. **removeColumn()**
+   ```
+    Schema::create('users', function (Blueprint $table) {
+            $table->string('name');
+            $table->removeColumn('name');
+
+
+        });
+   ```
+ 3. **renameColumn()**
+ At first create **new migration** as rename_name_column
+``` public function up()
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->renameColumn('name', 'to'); // Correct usage to rename 'name' to 'to'
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->renameColumn('to', 'name'); // Reverse the column name change
+        });
+    }
+
+```    
