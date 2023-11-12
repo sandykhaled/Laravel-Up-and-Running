@@ -246,3 +246,65 @@ or **put foreign key in []**
 $table->dropForeign(['user_id']);
 ```
 ___________________
+**Migration Commands**
+1. **php artisan migrate**
+2. **php artisan migarte:reset** just run migration without tables -tables are pending-
+3. **php artisan migrate:refresh** the same as **migarte:reset** put run migration again
+4. **php artisan migrate:fresh** the same as **migrate:fresh** but doesn’t bother with the “down” migrations
+5. **php artisan migrate:status**
+6. **php artisan migrate:rollback**
+7. **php artisan migrate:install** // you can ignore it
+8. **php artisan migrate --seed** 
+
+___________________
+**Seeder** <br/>
+**to create seeder**
+```
+php artisan make:seeder UserSeeder
+```
+**In database/seeder/UserSeeder**
+```
+ public function run(): void
+    {
+        User::create([
+            'name'=>'aly',
+            'email'=>'ali@aly.com',
+            'password'=>Hash::make(12345678)
+        ]);
+    }
+```
+**To run seeder**
+```
+php artisan db:seed --class=UserSeeder
+```
+What if I have **multi** seeders?
+**In database/seeder/DatabaseSeeder**
+```
+$this->call(UserSeeder::class,PostSeeder::class);
+```
+**To run seeder**
+**Note you must run command after every migrate:f or refresh**
+```
+php artisan db:seed
+```
+**To avoid error with use command more than a time(duplicate data)**
+```
+ public function run(): void
+    {
+        User::truncate();
+        User::create([
+            'name'=>'aly',
+            'email'=>'ali@aly.com',
+            'password'=>Hash::make(12345678)
+        ]);
+    }
+```
+**To run a seeder along with a migration**
+```
+php artisan migrate --seed
+```
+```
+php artisan migrate:refresh --seed
+```
+
+
