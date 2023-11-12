@@ -294,7 +294,7 @@ php artisan db:seed
         User::truncate();
         User::create([
             'name'=>'aly',
-            'email'=>'ali@aly.com',
+            'email'=>'aly@aly.com',
             'password'=>Hash::make(12345678)
         ]);
     }
