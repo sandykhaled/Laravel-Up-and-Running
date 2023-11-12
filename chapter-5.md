@@ -257,7 +257,7 @@ ___________________
 8. **php artisan migrate --seed** 
 
 ___________________
-**Seeder** <br/>
+## Seeder <br/>
 **to create seeder**
 ```
 php artisan make:seeder UserSeeder
