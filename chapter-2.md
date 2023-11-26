@@ -83,3 +83,19 @@ APP_DEBUG=true
 
 ```
 
+**Laravel offers five tool for local development**
+1. artisan serve => easy to remember.
+2. Sail => use Dockor
+3. Valet => for mac
+4. Laravel Herd => it removes the need to work with Homebrew, Docker, or any other dependency managers
+5. HomeStead => tool for managing virtual machines
+
+**Create New Project**
+```
+composer create-project laravel/laravel _project
+```
+Or a simpler way
+```
+laravel new project
+```
+
