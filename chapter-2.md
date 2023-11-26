@@ -92,7 +92,7 @@ APP_DEBUG=true
 
 **Create New Project**
 ```
-composer create-project laravel/laravel _project
+composer create-project laravel/laravel project
 ```
 Or a simpler way
 ```
