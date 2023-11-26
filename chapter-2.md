@@ -94,7 +94,7 @@ APP_DEBUG=true
 ```
 composer create-project laravel/laravel project
 ```
-**laravel/laravel means a skeleton Laravel install**
+**laravel/laravel means a skeleton Laravel install** <br/>
 Or a simpler way
 ```
 laravel new project
@@ -103,7 +103,7 @@ if composer is global use
 ```
 composer global require "laravel/installer"
 ```
-Installing laravel with **sail**
+Installing laravel with **sail** <br/>
 **Note it requires Dockor**
 ```
 curl -s "https://laravel.build/example-app" | bash
