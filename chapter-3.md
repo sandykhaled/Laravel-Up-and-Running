@@ -1,5 +1,11 @@
 # Laravel-Up-and-Running
 ## chapter 2
+the mian function of web application to take request from user and response (using Http for example) .. without routes you have little to no ability to interact with the end user.
+**What is MVC?**
+1. **Model** : deals with database
+2. **View** : deals with User
+3. **Controller** : like cop traffic that take request from user search in database , validate user input then retuen response to user
+**the user will first interact with the controller by sending the request , then controller will pull data from model , then return data (response) to user in view section (display in browser)**
 **Notes**
 1. HTTPS verbs
    
@@ -8,12 +14,12 @@
    3. PUT
    4. DELETE
    5. HEAD
-   6. OPTIONS
+   6. OPTIONS (Ask server which verbs are allowed at this url)
    7. PATCH
    8. TRACE
    9. CONNECT
        
- **Note** the last two are pretty much never used in
+ **Note** The last two are pretty much never used in
 normal web development <br/>
 2. **What’s a Closure?** <br/>
 Closures are PHP’s version of anonymous functions. A closure is a function that you
