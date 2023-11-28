@@ -4,9 +4,9 @@ the mian function of web application to take request from user and response (usi
 **What is MVC?**
 1. **Model** : deals with database
 2. **View** : deals with User
-3. **Controller** : like cop traffic that take request from user search in database , validate user input then retuen response to user
+3. **Controller** : like cop traffic that take request from user search in database , validate user input then retuen response to user <br/>
 **the user will first interact with the controller by sending the request , then controller will pull data from model , then return data (response) to user in view section (display in browser)**
-**Notes**
+___________________________
 1. HTTPS verbs
    
    1. GET
@@ -21,6 +21,7 @@ the mian function of web application to take request from user and response (usi
        
  **Note** The last two are pretty much never used in
 normal web development <br/>
+____________________________
 2. **What’s a Closure?** <br/>
 Closures are PHP’s version of anonymous functions. A closure is a function that you
 can pass around as an object, assign to a variable, pass as a parameter to other func‐
