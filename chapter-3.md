@@ -4,8 +4,8 @@ the mian function of web application to take request from user and response (usi
 **What is MVC?**
 1. **Model** : deals with database
 2. **View** : deals with User
-3. **Controller** : like cop traffic that take request from user search in database , validate user input then retuen response to user <br/>
-**the user will first interact with the controller by sending the request , then controller will pull data from model , then return data (response) to user in view section (display in browser)**
+3. **Controller** : like cop traffic that take request from user search in database , validate user input then retuen response to user <br/> <br/>
+   **The user will first interact with the controller by sending the request , then controller will pull data from model , then return data (response) to user in view section (display in browser)**
 ___________________________
 1. HTTPS verbs
    
