@@ -1,6 +1,6 @@
 # Laravel-Up-and-Running
 ## chapter 2
-the mian function of web application to take request from user and response (using Http for example) .. without routes you have little to no ability to interact with the end user.
+the mian function of web application to take request from user and response (using Http for example) .. without routes you have little to no ability to interact with the end user. <br/>
 **What is MVC?**
 1. **Model** : deals with database
 2. **View** : deals with User
