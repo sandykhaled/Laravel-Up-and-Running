@@ -492,5 +492,5 @@ $this->get('assignment')->assertSee('greate assignmnet');
 ```
 
 **Reference Videos** <br/>
-[Laravel Route Grouping-LaravelDaily](https://www.youtube.com/watch?v=I6kyfSmPhn8)
+[Laravel Route Grouping-LaravelDaily](https://www.youtube.com/watch?v=I6kyfSmPhn8) <br/>
 [Domain Route](https://www.youtube.com/watch?v=ptqf5ZCWuFM)
