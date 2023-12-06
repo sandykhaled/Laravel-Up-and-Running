@@ -1,5 +1,5 @@
 # Laravel-Up-and-Running
-## chapter 2
+## chapter 3
 the mian function of web application to take request from user and response (using Http for example) .. without routes you have little to no ability to interact with the end user. <br/>
 **What is MVC?**
 1. **Model** : deals with database
@@ -150,6 +150,24 @@ attempt count
 Route::middleware(['auth','throttle:60,1'])->group(function(){
 Route::get('profile',function(){
 });
+});
+```
+***If I use route resource and I want to add another route like this**
+```
+Route::resource('posts',\App\Http\Controllers\PostController::class);
+Route::get('posts/index2',[\App\Http\Controllers\PostController::class,'index2']); //Wrong this route must be before route resource 
+```
+```
+Route::get('posts/index2',[\App\Http\Controllers\PostController::class,'index2']); //Right
+Route::resource('posts',\App\Http\Controllers\PostController::class);
+```
+**Nested Group Routes**
+```
+Route::group(['middleware'=>'auth'],function (){
+   Route::get('posts',[\App\Http\Controllers\PostController::class,'index']);
+   Route::group(['middleware','admin'],function (){
+       Route::get('users',[\App\Http\Controllers\UserController::class,'index']);
+   });
 });
 ```
 **Dymanic Rate Limiting**
@@ -313,7 +331,7 @@ php artisan make:controller ApiResourceController --api
 ```
 in routes/web.php
 ```
-Route::apiResource('Resources','ApiResourceController');
+Route::apiResource('Resources','ApiResourceController')->expect('create','edit');
 ```
 when a controller should only service a single
 route
@@ -473,5 +491,6 @@ $this->get('assignment')->assertSee('greate assignmnet');
 }
 ```
 
-**Reference Videos**
+**Reference Videos** <br/>
 [Laravel Route Grouping-LaravelDaily](https://www.youtube.com/watch?v=I6kyfSmPhn8)
+[Domain Route](https://www.youtube.com/watch?v=ptqf5ZCWuFM)
