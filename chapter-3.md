@@ -89,6 +89,13 @@ Another Way
 ```
 Route::get('posts/{id}',['as'=>'posts.show','uses'=>'PostController@show']);
 ```
+**url() & route()**
+```
+<a href="{{route('')}}">
+<a href="{{route('',['name'=>'Ali'])}}"> //if it has parameters
+<a href="{{url('')}}">
+```
+**Prefer to use route() instead of url()**
 Or Using Functions
 ```
 Route::get('posts/{id}',['as','posts.show',function(){
@@ -463,3 +470,5 @@ $this->get('assignment')->assertSee('greate assignmnet');
 }
 ```
 
+**Reference Videos**
+[Laravel Route Grouping-LaravelDaily](https://www.youtube.com/watch?v=I6kyfSmPhn8)
