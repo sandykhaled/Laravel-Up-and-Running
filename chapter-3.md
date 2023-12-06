@@ -43,7 +43,9 @@ $router->get('/', function () {
  return 'Hello, World!';
 });
 ```
+
 Instead of
+
 ```
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +54,7 @@ Route::get('/', function () {
 });
 
 ```
+
 To Handle get or post
 
 ```
