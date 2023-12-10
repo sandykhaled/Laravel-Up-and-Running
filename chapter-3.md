@@ -382,7 +382,7 @@ return view('notfound');
 });
 
 ```
-**Route Cache**
+**Route Cache In Bootstrap** <br/>
 Using the route cache will drastically decrease the amount of time it takes to register all of your application's routes. if you add any new routes you will need to generate a fresh route cache. Because of this, you should only run the route:cache command during your project's deployment.
 <br/>
 ```
