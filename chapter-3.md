@@ -430,6 +430,7 @@ window.axios.defaults.headers.common['X-CSRF-TOKEN'] =
  document.head.querySelector('meta[name="csrf-token"]');
 ```
 Redirect
+**The next 4 routes follow a similar pattern**
 ```
 Route::get('visit-link',function(){
     return redirect('login');
@@ -440,11 +441,29 @@ Route::get('visit-link',function(){
 Route::get('visit-link',function(){
 Route::redirect('login');
 });
-Route::redirect('visit-link','login',{3rd parameter is optional is status code});
+Route::redirect('visit-link','login',{3rd parameter is optional is status code e.g; 201});
+```
+**How To method looks like?**
+```
+function to($to = null, $status = 302, $headers = [], $secure = null)
+```
+**How redirect method looks like?**
+```
+function redirect($to = null, $status = 302, $headers = [], $secure = null)
 ```
 ```
-return redirect()->route('con.index',['con'=>1]); // Nearly the same of redirect()->to() 
+return redirect()->route('con.index',['con'=>1]);  //similar to to_route() 
 ```
+**redirect()->route() is equal to to_route()** <br/>
+**redirect()->route() VS redirect()->to()**
+Now I have route
+```
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+```
+**VIN**<br/>
+**/ refers to uri=> to() , welcome in name helper method refers to route()**
 ```
 return redirect()->back();
 //Or
@@ -461,8 +480,31 @@ return Redirect::route('home');
 return Redirect::refresh();
 ```
 ```
-
+//secure
+Route::get('/url',function(){
+return redirect()->secure();
+});
 ```
+```
+//action()
+Route::get('log',function (){
+    return redirect()->action([DashboardController::class,'index']);
+});
+```
+```
+//guest()
+Route::get('log',function (){
+    return redirect()->guest('/');
+});
+/ refers to path like to()
+```
+```
+Route::get('log',function (){
+    return redirect()->intended();
+});
+```
+
+**redirect()->secure() is similar to redirect()->to()**
 **Abort**
 ```
 abort(status_code); <br/>
