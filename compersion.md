@@ -237,6 +237,22 @@ In view
 ```
 @role('sara')
 ```
+__________________
+**{{}} Vs {!! !!}**
+```
+<div class="modal">
+<div>{{$title}}</div>
+<div>{!! $content !!}</div>
+</div>
+```
+```
+@include('partials.modal',['title'=>
+'Title One','content'=>"<p>Hello world!</p>"])
+```
+**what do you notice ?** <br/>
+Use **{{ }}** for regular variable echoing with automatic HTML escaping. <br/>
+Use **{!! !!}** when you explicitly want to output raw, unescaped HTML content, 
+like when dealing with trusted and sanitized data that includes HTML tags <br/>
 [custom blade directives](https://www.youtube.com/watch?v=2UO-8K_TnPc)
 [Source](https://www.youtube.com/@codingwithstef6225)
 [Slot&Commponent](https://www.youtube.com/watch?v=B-DTsHGbbTk)
