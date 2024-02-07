@@ -161,3 +161,86 @@ return view('jobs.job',compact('jobs'));
 title1
 title2
 ```
+______________
+**$slot**<br/>
+Example-1
+```
+// in components/alert.blade.php
+<div>
+This is title from main page
+{{$slot}}
+</div>
+```
+```
+<x-alert>
+this is title form secondary page
+</x-alert>
+```
+ Example-2
+```
+// in components/alert.blade.php
+<div>
+This is title from main page
+<span style="color:red">{{$title}}<span>
+<span style="color:green">{{$content}}</span>
+</div>
+```
+```
+<x-alert>
+<x-slot:title>
+title 1
+</x-slot>
+<x-slot:content>
+this content span
+</x-slot>
+</x-alert>
+```
+___________________________
+## Method Components
+
+1- Make component class
+```
+php artisan make:component Alert
+```
+in **app/View/Component/Alert.php**
+```
+public function showMessage($msg){
+return $msg;
+}
+```
+in **resources/views/components/alert.blade.php**
+```
+{{$showMessage('this is msg')}}
+```
+in your view page
+```
+<x-alert/>
+```
+_________________________________
+## View Composer 
+  **ِApp/providers/appservicesprovider.php**<bdi> في</bdi>share view<bdi>كل مرة هستخدم</bdi>compact<bdi> بدل ما امرر </bdi>view <bdi>في كذا </bdi>variable <bdi> ليه انا ممكن استخدمه ؟ لو عندي </bdi>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
