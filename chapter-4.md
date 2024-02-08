@@ -218,12 +218,53 @@ in your view page
 ```
 _________________________________
 ## View Composer 
-  **ِApp/providers/appservicesprovider.php**<bdi> في</bdi>share view<bdi>كل مرة هستخدم</bdi>compact<bdi> بدل ما امرر </bdi>view <bdi>في كذا </bdi>variable <bdi> ليه انا ممكن استخدمه ؟ لو عندي </bdi>
+  **ِApp/providers/appservicesprovider.php** <bdi> في</bdi>share view<bdi>كل مرة هستخدم</bdi>compact<bdi> بدل ما امرر </bdi>view <bdi>في كذا </bdi>variable <bdi> ليه انا ممكن استخدمه ؟ لو عندي </bdi>
+  <br/>
+  Example 
+```
+//in App/providers/AppServiceProvider.php
+use Illuminate\Support\Facades\View;
 
+public function boot(){
+View::share('message','hello users');
+}
+```
+**This means you can use $message in any view page**
+Composer view<bdi> طب ده معناه انه شير علي كل الصفح لو أنا عاوزة صفح معينة اعمل ايه؟ وقتها هستخدم</bdi>
+```
+//in App/providers/AppServiceProvider.php
+use Illuminate\Support\Facades\View;
 
+public function boot(){
+View::composer(['welcome','index'],function($view){
+$view->with('message','this is msg for users');
+});
+}
+```
+Or o organize your code make **app/http/composers/message.php**
+```
+<?php
 
+namespace App\Http\composers;
 
+use Illuminate\Contracts\View\View;
 
+class message
+{
+ public function compose(View $view)
+ {
+     $view->with('message','Hello my users');
+ }
+}
+```
+and in **app/providers/AppServicesProvider**
+```
+ public function boot(): void
+    {
+        View::composer('welcome',message::class);
+    }
+```
+[View Composer](https://www.youtube.com/watch?v=dM8En5de7EI)
 
 
 
