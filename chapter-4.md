@@ -266,8 +266,61 @@ and in **app/providers/AppServicesProvider**
 ```
 [View Composer](https://www.youtube.com/watch?v=dM8En5de7EI)
 
+________________
+## Custom Blade Directives
+if you use @if(auth()->guest()) many times you can make your own directive to reduce your code how this?<br/>
+in App/Providers/AppServiceProvider
+```
+public function boot(){
+Blade::directive('ifGuest',function(){
+return "<?php if(auth()->guest()):?>"
+});
+}
+```
+then in your **View**
+```
+@ifGuest
+Welcome , Guest
+@else
+Welcome , User
+@endif
+```
+## Parameters in Custom Blade Directives
+```
+Blade::directive('newlinesToBr', function ($expression) {
+ return "<?php echo nl2br({$expression}); ?>";
+});
+```
+then in your **View**
+```
+<p>@newlinesToBr($message->body)</p>
+```
+_________________
+## Blade Service Injection
+At first make class in service container **app/services/UserService.php**
+```
+ public function getUserInfo()
+{
+    return ['name' => 'John Doe', 'email' => 'john@example.com'];
+}
+```
+then in **App/Providers/pAppServicesProvider.php**
+```
+public function register(): void
+    {
+        $this->app->bind(UserService::class);
 
+    }
+```
+the in your **View**
+```
+@inject('userService', 'App\Services\UserService')
 
+<div>
+    <h1> {{ $userService->getUserInfo()['name'] }} </h1>
+    <p>Email: {{ $userService->getUserInfo()['email'] }}</p>
+</div>
+```
 
 
 
