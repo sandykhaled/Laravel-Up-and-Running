@@ -361,6 +361,7 @@ then in  **tinker**
 
 ```
 App\Models\Book::factory()->create()                                                                                                                        
+
 ```
 
 when you want to write **multiple instances**
