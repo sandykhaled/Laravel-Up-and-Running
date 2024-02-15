@@ -160,7 +160,7 @@ Schema::create('users', function (Blueprint $table) {
 ``` public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->renameColumn('name', 'names'); // Correct usage to rename 'name' to 'to'
+            $table->renameColumn('name', 'names'); // Correct usage to rename 'name' to 'names'
         });
     }
 
@@ -196,11 +196,28 @@ public function up()
 }
 ```
 ______________________________
+**Squashing migrations**
+<br/>
+If you have too many migrations, you can merge them all <br/>
+into a single SQL file that Laravel will run before it runs any future migration <br/>
+```
+php artisan schema:dump
+```
+**Note make Schema Dir with file has all migration tables**
+```
+php artisan schema:dump --prune
+```
+**Note the same of prev command but delete migration dir**
+______________________________
+**Note : If you use schema dumps, you can’t use in-memory SQLite; it only works on
+MySQL, PostgreSQL, and local file SQLite.**
+______________________________
 **unique() & primary() & index()**
 ```
 $table->primary('primary_id'); // Primary key; **unnecessary if used increments() or bigIncrements() or id()**
 $table->primary(['first_name', 'last_name']); // Composite keys
 $table->unique('email'); // Unique index
+$table->unique('email','unique_email'); // rename Unique column
 $table->index('amount'); // Basic index
 ```
 **dropUnique() & dropPrimary() & dropIndex()**
@@ -249,13 +266,19 @@ ___________________
 **Migration Commands**
 1. **php artisan migrate**
 2. **php artisan migarte:reset** just run migration without tables -tables are pending-
-3. **php artisan migrate:refresh** the same as **migarte:reset** put run migration again
+3. **php artisan migrate:refresh** the same as **migarte:reset** put run migration again (rollback then create again)
 4. **php artisan migrate:fresh** the same as **migrate:fresh** but doesn’t bother with the “down” migrations
 5. **php artisan migrate:status**
 6. **php artisan migrate:rollback**
 7. **php artisan migrate:install** // you can ignore it
+ _____________
 8. **php artisan migrate --seed** 
-
+equal to : <br/>
+**php artisan db:seed** and **php artisan migrate**
+_______________
+**php artisan db:monitor** => show database connection <br/>
+**php artisan db:table** => show all tables with all data <br/>
+**php artisan db:show** => show all tabled only <br/>
 ___________________
 ## Seeder <br/>
 **to create seeder**
@@ -306,5 +329,41 @@ php artisan migrate --seed
 ```
 php artisan migrate:refresh --seed
 ```
+______________________
+**Factory**
+```
+php artisan make:factory BookFactory --model=book
+```
+then in BookFactory
+```
+ public function definition(): array
+    {
+        return [
+            'title'=>$this->faker->title,
+            'author_name'=>$this->faker->name
+        ];
+    }
+```
+in model Book
+```
+protected static function newFactory()
+{
+ return \Database\Factories\BookFactory::new();
+}
+```
+**this is not mandatory this must be used when you don't follow convention name of laravel** <br/>
+in this case you must **define model in factory** <br/>
+```
+protected $model = "Books";
+```
+then in  **tinker**<br/>
+```
+App\Models\Book::factory()->create()                                                                                                                        ```
+when you want to write multiple instances
+```
+App\Models\Book::factory(10)->create()  
+App\Models\Book::factory()->count(10)->create()                                                                                                             ```
+**first statement is shorthand of second statement**
 
-
+```                         
+```
