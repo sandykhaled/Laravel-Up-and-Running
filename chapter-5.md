@@ -397,3 +397,53 @@ App\Models\User::factory()->count(20)->has(App\Models\Book::factory()->count(2))
 **Note has() function must Write relationships with 2 models in model** 
 [has function](https://stackoverflow.com/questions/64636625/laravel-generate-multiple-models-using-factory-hasmany-relationship)
 
+_____________________
+**Example 5-11. Using values from other parameters in a factory**
+```
+//in contacts table
+
+$table->unsignedBigInteger('company_size')->constrained('companies', 'size');
+```
+```
+//in compaines table
+
+$table->unsignedBigInteger('size');
+```
+```
+// in CompanyFactory
+
+ return[
+        'name' => fake()->company,
+        'size' => fake()->randomFloat(2, 1, 100), 
+        ];
+```
+```
+//ContactFactory
+
+return [
+            'name'=>'sandy khaled',
+            'email'=>'sandy@gmail.com',
+            'company_id'=>Company::factory(),
+            'company_size'=>function (array $attributes) {
+                return Company::find($attributes['company_id'])->size;
+            }
+        ];
+```
+___________________
+**for() and has()** <br/>
+**for() define that the instance we’re creating belongsTo()** <br/>
+**has()  define that the instance we’re creating hasMany()** <br/>
+```
+// create 10 books for 1 user
+
+Book::factory()->create(10)->for(User::factory)->create()
+```
+```
+//create 10 users each user has 2 books
+User::factory()->count(10)->has(Book::factory()->count(2))->create();
+```
+**Note: This code may lead to an error.**
+
+```
+Book::factory()->count(10)->for(User::factory()->count(2))->create();
+```
