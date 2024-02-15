@@ -344,7 +344,7 @@ then in BookFactory
         ];
     }
 ```
-in model Book
+in model **Book**
 ```
 protected static function newFactory()
 {
@@ -361,10 +361,13 @@ protected $model = "Books";
 then in  **tinker**<br/>
 
 ```
+
 App\Models\Book::factory()->create()                                                                                                                        
+
 ```
 
 when you want to write **multiple instances**
+
 
 ```
 App\Models\Book::factory(10)->create()  
