@@ -357,13 +357,8 @@ in this case you must **define model in factory** <br/>
 ```
 protected $model = "Books";
 ```
-
-then in  **tinker**<br/>
-
 ```
-
 App\Models\Book::factory()->create()                                                                                                                        
-
 ```
 
 when you want to write **multiple instances**
