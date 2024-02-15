@@ -353,6 +353,7 @@ protected static function newFactory()
 ```
 **this is not mandatory this must be used when you don't follow convention name of laravel** <br/>
 in this case you must **define model in factory** <br/>
+
 ```
 protected $model = "Books";
 ```
