@@ -359,8 +359,11 @@ protected $model = "Books";
 
 then in  **tinker**<br/>
 ```
-App\Models\Book::factory()->create()                                                                                                                        ```
-when you want to write multiple instances
+App\Models\Book::factory()->create()                                                                                                                        
+```
+
+when you want to write **multiple instances**
+
 ```
 App\Models\Book::factory(10)->create()  
 App\Models\Book::factory()->count(10)->create()                                                                                                             ```
