@@ -373,5 +373,28 @@ when you want to write **multiple instances**
 App\Models\Book::factory(10)->create()  
 App\Models\Book::factory()->count(10)->create()  
    ```               
-**first statement is shorthand of second statement**
+**first statement is shorthand of second statement**<br/>
+**we can run one of two methods on it: make() or create()**
+______________________
+**I want to create 20 users and each user has 2 books**<br/>
+At first make relationship between user and book models
+```
+//in user Model
+public function books(){
+return $this->hasMany(Book::class);
+}
+```
+```
+//in book Model
+public function user(){
+return $this->belongsTo(User::class);
+}
+```
+**Don't forget to create userseeder, bookseeder and complete migration with relationship**
+```
+App\Models\User::factory()->count(20)->has(App\Models\Book::factory()->count(2))->create()
+```
+**Note has() function must Write relationships with 2 models in model** 
+[https://stackoverflow.com/questions/64636625/laravel-generate-multiple-models-using-factory-hasmany-relationship](j)
 
+**
