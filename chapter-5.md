@@ -366,12 +366,10 @@ App\Models\Book::factory()->create()
 when you want to write **multiple instances**
 
 
-```
-App\Models\Book::factory(10)->create()  
-App\Models\Book::factory()->count(10)->create()                                                                                                             
-```
-
 **first statement is shorthand of second statement**
 
-                  
+```
+App\Models\Book::factory(10)->create()  
+App\Models\Book::factory()->count(10)->create()  
+   ```               
 
