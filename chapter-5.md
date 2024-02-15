@@ -395,6 +395,5 @@ return $this->belongsTo(User::class);
 App\Models\User::factory()->count(20)->has(App\Models\Book::factory()->count(2))->create()
 ```
 **Note has() function must Write relationships with 2 models in model** 
-(https://stackoverflow.com/questions/64636625/laravel-generate-multiple-models-using-factory-hasmany-relationship)[has function]
+[has function](https://stackoverflow.com/questions/64636625/laravel-generate-multiple-models-using-factory-hasmany-relationship)
 
-**
