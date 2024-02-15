@@ -362,6 +362,8 @@ then in  **tinker**
 
 
 ```
+App\Models\Book::factory()->create()  
+
 ```
 
 
