@@ -447,3 +447,30 @@ User::factory()->count(10)->has(Book::factory()->count(2))->create();
 ```
 Book::factory()->count(10)->for(User::factory()->count(2))->create();
 ```
+___________
+**Sequence will determine only the attributes that you specify:**
+```
+User::factory()->count(10)->has(Book::factory()->count(2)->sequence(
+            ['title'=>'mrssss'],['title'=>'mr...']
+        ))->create();
+```
+_____________
+```
+ User::factory()->count(10)->has(Book::factory()->count(2)->state(function (array $attributes, User $user) {
+            return ['title' => $user->name ];
+        }))->create();
+```
+**this means title of books equal to name of users table**
+____________
+```
+User::factory()
+            ->count(3)
+            ->has(Book::factory()->sequence(['title'=>'Company Title']))->create();
+```
+**The sequence method must have variables on the nearer model.**
+_______________
+**state is used for dynamic customization of attributes based on the parent model's state,
+while sequence is used for generating sequential values for a specific attribute.** <br/>
+**state  takes a callback function** <br/>
+**sequence Takes an array specifying the attributes to sequence** <br/>
+
