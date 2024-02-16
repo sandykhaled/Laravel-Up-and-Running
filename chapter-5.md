@@ -471,6 +471,12 @@ User::factory()
 _______________
 **state is used for dynamic customization of attributes based on the parent model's state,
 while sequence is used for generating sequential values for a specific attribute.** <br/>
-**state  takes a callback function** <br/>
-**sequence Takes an array specifying the attributes to sequence** <br/>
+_________________
+```
+ $users = User::factory()
+            ->count(10)
+            ->sequence(fn (Sequence $sequence) => ['name' => 'Name '.$sequence->index])
+            ->create();
+```
+**output sequence refers to id if id = 1 , name=Name 0**  
 
