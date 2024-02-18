@@ -479,4 +479,93 @@ _________________
             ->create();
 ```
 **output sequence refers to id if id = 1 , name=Name 0**  
+________________________________
+## Query Builder
 
+**Fluent Vs non-Fluent**
+<br/>
+**//Fluent**
+<br/> A fluent interface allows the usage of multiple sequential methods, where each method call typically returns an instance of the object it belongs to, enabling a chain of consecutive method calls.<br/>
+```
+class Car {
+    private $color;
+
+    public function setColor($color) {
+        $this->color = $color;
+        return $this;  // Returning $this allows for method chaining
+    }
+
+    public function setBrand($brand) {
+        // Set brand logic
+        return $this;
+    }
+
+    public function drive() {
+        // Drive logic
+    }
+}
+
+// Using the fluent interface
+$myCar = new Car();
+$myCar->setColor('blue')->setBrand('Toyota')->drive();
+```
+**//non-Fluent**<br/>
+"A non-fluent interface requires separate and distinct method calls for each operation, where each method does not necessarily return the instance of the object, necessitating individual calls for different functionalities."
+```
+class Car {
+    private $color;
+
+    public function setColor($color) {
+        $this->color = $color;
+    }
+
+    public function setBrand($brand) {
+        // Set brand logic
+    }
+
+    public function drive() {
+        // Drive logic
+    }
+}
+
+// Using a non-fluent interface
+$myCar = new Car();
+$myCar->setColor('blue');
+$myCar->setBrand('Toyota');
+$myCar->drive();
+```
+_______________________
+**Raw SQL**
+
+```
+DB::statement("drop from users table");
+DB::select("SELECT * FROM users");
+DB::table('users')->get();
+```
+
+**delete(),update(),select(),insert()**
+```
+$users = DB::table('users')->select('name', 'email')->get();
+DB::table('users')->insert([
+    'name' => 'John Doe',
+    'email' => 'john@example.com',
+]);
+$affectedRows = DB::table('users')->where('id', 1)->update(['name' => 'UpdatedName']);
+$affectedRows = DB::table('users')->where('id', 1)->delete();
+```
+```
+$user= DB::select("SELECT * FROM users WHERE id = ? AND name = 'ali'",[$id]);
+$user= DB::select("SELECT * FROM users WHERE id = :id AND name = 'ali'",['id',$userId]);
+```
+**insert()**
+```
+$user= DB::insert("insert into users(name,email,password)VALUES (?,?,?)",['hany','hany@hany.com','12345678']);
+```
+**delete statement**
+```
+$user= DB::delete("delete from users WHERE name = ? ",['Ali']);
+```
+**update()**
+```
+$user= DB::update("update users set name = 'ali' where name = ? ",['hany']);
+```
