@@ -569,3 +569,64 @@ $user= DB::delete("delete from users WHERE name = ? ",['Ali']);
 ```
 $user= DB::update("update users set name = 'ali' where name = ? ",['hany']);
 ```
+____________________
+**select & addSelect()**
+```
+DB::table('users')->select('email','password as passUser')->get();
+//Or
+DB::table('users')->select('email')->addSelect('password ass passUser')->get();
+```
+_______________________
+**where()**
+```
+$user = DB::table('users')->where('created_at','>',now()->subDay())->get();
+// will return any date after 24 hours ago ...
+```
+**where([[],[]])**
+```
+$user = DB::table('users')->where([['created_at','>',now()->subDay()],['id','<','9']])->get();
+// multiple where conditional can be written as where([[],[]])
+```
+**orWhere()**
+```
+$user = DB::table('users')->where('created_at','>',now()->subDay())->orWhere('id','<','6')->get();
+//return any condition that matches
+```
+**complex orWhere()**
+```
+$user = DB::table('users')->where('created_at','>',now()->subDay())->orWhere(function ($query){
+            $query->where('id','>','6')->where('name','salem');
+        })->get();
+```
+```
+$user = DB::table('users')->where('created_at','>',now()->subDay())->orWhere('id','>',
+'6')->where('name','salem')->get();
+//"select * from `users` where `created_at` > ? or `id` > ? and `name` = ?"
+```
+**whereBetween()**
+```
+$user = DB::table('users')->whereBetween('id',[1,9])->get();
+```
+**whereIn()**
+```
+$user = DB::table('users')->whereIn('id',[1,9])->get();
+```
+**whereNotIn()**
+<br/>
+**whereNotNull() & whereNull()**
+```
+$user = DB::table('users')->whereNotNull('created_at')->get();
+```
+```
+$user = DB::table('users')->whereNull('created_at')->get();
+```
+**whereRaw()**
+```
+$name="sandy";
+$user = DB::table('users')->whereRaw('name = ?',$name)->get();
+//Or
+$user = DB::table('users')->whereRaw("name = 'salem'")->get();
+```
+
+
+_______
