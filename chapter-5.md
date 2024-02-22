@@ -651,9 +651,165 @@ $user = DB::table('users')->oldest()->take(3)->get();
 $user = DB::table('users')->latest()->take(3)->get();
 //descending
 ```
+___________
+**groupBy()**
+```
+ $book = DB::table('books')
+            ->select('user_id',DB::raw('COUNT(*) as count'))
+            ->groupBy('user_id')
+            ->having('count','>','1')
+            ->get();
+```
+```
+ $book = DB::table('books')
+            ->select('user_id',DB::raw('COUNT(*) as count'))
+            ->groupBy('user_id')
+            ->havingRaw('count > 1')
+            ->get();
+```
+**having() & havingRaw()**
+```
+havingRaw($sql)
+having($column,$operator,$value)
+```
 ________
 **inRandomOrder()**
 ```
 $user = DB::table('users')->inRandomOrder()->take(3)->get(); //change each refresh
 ```
 _________
+**count()** 
+```
+ $book = DB::table('books')->where('user_id','=','1')->count();
+// return count of user_id = 1
+```
+________
+**find()**
+```
+ $book = DB::table('books')
+           ->find(1,['user_id','name']);
+// find($id,$columns[optional]) return only user_id,name from query 
+```
+_________
+**get()**
+```
+$book = DB::table('books')->where('user_id',1)->get(); //return all data that match condition user_id=1
+$book = DB::table('books')->get(); //return all data 
+```
+**Note: there is no ->all() in DB**
+________
+**first()**
+```
+$book = DB::table('books')->orderBy('user_id','desc')->first();
+// return only first column match the condition
+```
+```
+$book = Book::where('user_id','2')->first(); // if there is no user_id = 1 , return empty page
+$book = Book::where('user_id','2')->firstOrFail(); //return not found
+```
+**Note findOrFail() & firstOrFail() don't use in DB** <br/>
+**first() fails silently if there are no results, Vs
+firstOrFail() will throw an exception**
+______________
+**value()**
+```
+$book = DB::table('books')->orderBy('user_id')->value('name');
+//value($column)
+//return only name column from the matching condition
+```
+__________
+**min() & max()**
+```
+$book = DB::table('books')->min('user_id');
+$book = DB::table('books')->max('user_id');
+```
+**sum() & avg()**
+```
+$book = DB::table('books')->sum('user_id');
+$book = DB::table('books')->avg('user_id');
+```
+__________
+**dd()**
+```
+$user = DB::table('users')->where('name', 'Wilbur Powery')->dd();
+// SELECT * FROM users WHERE name = `Wilbur Powery`
+```
+**dump()**
+```
+dump(DB::table('books')->where('options->isAdmin','false'));
+```
+________
+**explain()**
+```
+$user = DB::table('users')->explain()->dd();
+// return array has table name , no. of rows ,and other data
+```
+___________
+**DB::raw()**
+```
+//Custom Calculations
+$book= DB::table('books')->select(DB::raw(' user_id * 10 as NID '))->get();
+//Using Aggregation Functions (MIN(),MAX(),COUNT())
+$book = DB::table('books')->select('user_id',DB::raw('COUNT(*) as count'))->groupBy('user_id')->get();
+```
+________
+**join**
+```
+//inner join
+ $book = DB::table('books')->
+        join('users','user_id','=','users.id')->select('books.*','users.name','users.email')->get();
+```
+**Complex join**
+```
+$book = DB::table('books')->
+        join('users',function ($join){
+            $join->on('user_id','=','users.id')
+            ->orOn('user_id','=','users.name');
+        })->get();
+```
+________
+**union()**
+```
+ $first = DB::table('books')->whereNull('name');
+        $book = DB::table('books')->whereNull('user_id')->
+        union($first)->get();
+```
+**insert() , insertGetId()**
+```
+DB::table('books')->insertGetId(['name'=>'book10','user_id'=>'2']);
+insertGetId // when you want to return id
+DB::table('books')->insert(['name'=>'book10','user_id'=>'2']);
+```
+___________
+**update()**
+```
+DB::table('books')->where('name','=','book10')->update(['name'=>'book200','user_id'=>'6']);
+```
+_______________
+**increment() & decrement()**
+```
+DB::table('books')->increment('id','100');
+DB::table('books')->decrement('id');
+```
+_________________
+**delete() & truncate()**
+```
+DB::table('books')->where('name','=','10book10')->delete();
+DB::table('books')->truncate(); // delete all rows from DB
+```
+_______
+for **json()**
+```
+//in Migration
+$table->json('options')->nullable();
+```
+```
+//in Factory
+'options'=>json_encode(['isAdmin'=>true])
+```
+```
+//to get
+DB::table('books')->where('isAdmin','true')->get();
+//to update
+DB::table('books')->update(['isAdmin'=>false]);
+```
