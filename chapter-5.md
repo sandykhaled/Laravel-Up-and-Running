@@ -627,6 +627,33 @@ $user = DB::table('users')->whereRaw('name = ?',$name)->get();
 //Or
 $user = DB::table('users')->whereRaw("name = 'salem'")->get();
 ```
-
-
-_______
+__________
+**distinct()** 
+```
+$user = DB::table('users')->select('name')->distinct()->get();
+// return only unique name form table users
+```
+**orderBy()**
+```
+$user = DB::table('users')->select('name')->distinct()->orderBy('name','Desc')->get();
+// return unique name order by desc
+```
+___________
+**skip(),take()**
+```
+$user = DB::table('users')->skip(2)->take(4)->get();
+```
+________
+**latest() Vs oldest()**
+```
+$user = DB::table('users')->oldest()->take(3)->get();
+//ascending
+$user = DB::table('users')->latest()->take(3)->get();
+//descending
+```
+________
+**inRandomOrder()**
+```
+$user = DB::table('users')->inRandomOrder()->take(3)->get(); //change each refresh
+```
+_________
