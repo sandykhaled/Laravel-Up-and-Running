@@ -813,3 +813,41 @@ DB::table('books')->where('isAdmin','true')->get();
 //to update
 DB::table('books')->update(['isAdmin'=>false]);
 ```
+________________
+**DataBase Transaction**
+```
+DB::transaction(function () {
+            $user = User::create([
+                'name' => 'yasser',
+                'email' => 'yassr@yahoo.com',
+                'password' => Hash::make('12345678')
+            ]);
+            $new = User::where('id','4')->update(['name'=>'sara']);
+        });
+```
+Or use **global variable**
+```
+$name= 'merna';
+        DB::transaction(function () use ($name)  {
+            $user = User::create([
+                'name' => 'yasser',
+                'email' => 'yaso@yahoo.com',
+                'password' => Hash::make('12345678')
+            ]);
+            $new = User::where('id','4')->update(['name'=>$name]);
+        });
+```
+**Manual Transaction**
+```
+        DB::beginTransaction();
+        $user = User::create([
+            'name'=>'yasser',
+            'email'=>'yasser@gail.com',
+            'password'=>Hash::make('12345678')
+        ]);
+        $new = User::find(3);
+        if(!$new)
+        DB::rollBack();
+        DB::commit();
+```
+__________________
