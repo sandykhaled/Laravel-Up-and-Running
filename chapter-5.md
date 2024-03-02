@@ -851,3 +851,206 @@ $name= 'merna';
         DB::commit();
 ```
 __________________
+**where()&first() Vs firstWhere()**
+```
+$user=User::firstWhere('id','3');
+$user=User::where('id','3')->first();
+```
+____________________
+**all() & get()**
+```
+User::where('id',3)->get();
+User::all(); // without where()
+```
+**So, even though all() is very common, I’d recommend using get() for everything and ignoring the fact that all() even exists.**
+____________________
+**o process a large amount (thousands or more) of
+records at a time**
+```
+User::chunk(20,function ($users){
+            foreach ($users as $user){
+                echo $user->name."<br/>";
+            }
+        });
+```
+**it will return all data but in chunks, each chunk size is 20**
+<br/>
+**Instead of**
+```
+ $users = User::all();
+            foreach ($users as $user){
+                echo $user->name."<br/>";
+            }
+```
+_____________________
+**Aggregates**
+```
+$users = User::whereIn('id',[3,4,6,7])->count();
+$users = User::sum('id'); 
+$users = User::avg('id');
+
+```
+_____________
+**Insert**
+```
+//First Way
+User::make([
+         'name'=>'ali',
+         'email'=>'ali@ali.com',
+         'password'=>Hash::make('12345678')
+     ])->save();
+```
+```
+// Second Way
+ $user = new User([
+         'name'=>'sandy',
+         'email'=>'sandy@sandy.com',
+         'password'=>Hash::make('12345678')
+     ]);
+     $user->save();
+```
+```
+//Third Way
+ $user = new User();
+     $user->name = 'salma';
+     $user->email = 'salma@salma.com';
+     $user->password = Hash::make('12345678');
+     $user->save();
+```
+```
+//Forth and Popular Way
+User::create([
+            'name'=>'ahmed',
+            'email'=>'ahmed@ahmed.com',
+            'password'=>Hash::make('12345678')
+        ]);
+```
+**In the make() method, you must use save(), while in the create() method, there is no need to use save().**
+______________
+**update()**
+```
+//first way
+$id = 3;
+User::findOrFail($id)->update([
+  'name'=>'mhmd',
+  'email'=>'mhmd@mhmd.com',
+  'password'=>Hash::make('12345678')
+        ]);
+```
+```
+$id = 3;
+$user = User::find($id);
+$user->name = 'sara';
+$user->email = 'sara@sara.com';
+$user->save();
+```
+**Note in prev example, you can't use where() instead of find()** <br/>
+**if you want to use where(), in this case you must use first() with where()**
+```
+$id = 3;
+$user = User::where('id', $id)->first();
+$user->name = 'sara';
+$user->email = 'sara@sara.com';
+$user->save();
+```
+**Very Importmant Note : if you use find() with first() it will return first row in db**
+```
+$id = 3;
+$user = User::find($id)->first();
+$user->name = 'sara';
+$user->email = 'sannnn@sara.com';
+$user->save();
+```
+**the prev code will update user with id = 1 not user with id = 3** 
+______________________
+**$fillable & $guard**
+```
+protected $fillable = ['name','email','password']; //determine which fields can be edited/created
+protected $guard = ['id','updated_at','created_at']; // determine which fields cannot be edited/created
+```
+________________
+**$request->all() & $request->only()**
+```
+ $contact->update($request->all());
+ $contact->update($request->only(['name','email']));
+```
+________________
+**firstOrCreate() & firstOrNew()**
+```
+$user = User::firstOrNew([
+      'name'=>'ali3',
+      'email'=>'ali3@ali.com',
+      'password'=>Hash::make('12345678')
+        ])->save();
+```
+```
+$user = User::firstOrCreate([
+          'name'=>'ali3',
+          'email'=>'ali3@ali.com',
+          'password'=>Hash::make('12345678')
+        ]);
+```
+**Note firstOrNew() must have save() to save on database but in firstOrCreate() No need to use save()** <br/>
+**firstOrNew() eill return 1 if it's found, but firstOrCreate will return data of user** <br/>
+____________________
+**delete() & destory()**
+```
+User::find(3)->delete(); // delete() doesn't have values
+```
+```
+User::destroy(3);
+```
+**if you have condition, use delete()**
+```
+ User::where('name','ali')->delete();
+```
+___________
+**softDeletes()**
+//in Model
+```
+use softDeletes;
+```
+in Migration
+```
+$table->softDeletes();
+```
+Then in ur controllers
+```
+User::withTrashed()->get(); //return all rows
+User::withoutTrashed()->get(); //only row without softDelete
+User::onlyTrashed()->get(); //only rows with softDeletes
+```
+**trashed()** // use for rows that already in trash
+```
+$users = User::onlyTrashed()->get();
+foreach ($users as $user){
+if ($user->trashed()) {
+$user->forceDelete();
+return $user->trashed();
+   }
+}
+```
+**forceDelete()**
+```
+//delete data perment from database
+$user->forceDelete();
+User::onlyTrashed()->forceDelete();
+```
+**restore()**
+```
+User::onlyTrashed()->restore();
+$user = User::onlyTrashed()->get();
+$user->restore();
+```
+______________
+**Local Scopes**
+```
+//in User Model
+public function scopeActive(Builder $builder,$id){
+return $builder->where('id',$id);
+}
+```
+```
+//in User controller
+User::active(7)->update(['name'=>'sarah']);
+```
