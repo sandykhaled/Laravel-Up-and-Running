@@ -1054,3 +1054,56 @@ return $builder->where('id',$id);
 //in User controller
 User::active(7)->update(['name'=>'sarah']);
 ```
+**Using 2 local Scopes with orWhere() condition**
+```
+$user = User::active(5)->orWhere(function($query){
+$query->name('farah');
+})->get();
+```
+**Using 2 or more local scopes**
+```
+User::active(5)->name('farah')->age(25)->get();
+```
+________________
+**Global Scopes**
+```
+public static function booted()
+     {
+         static::addGlobalScope('first',function (Builder $builder){
+             $builder->where('name','sarah');
+         });
+
+     }
+```
+**Or create class for global scope**
+```
+php artisan make:scope ActiveScope
+```
+```
+class ActiveScope implements Scope
+{
+ public function apply(Builder $builder, Model $model): void
+ {
+ $builder->where('active', true);
+ }
+}
+```
+```
+//in Model
+public static function booted(){
+static::addGlobalScope(new ActiveScope())
+}
+```
+**withoutGlobalScope()**
+```
+User::withoutGlobalScope('acive')->get();
+```
+**if you want to except same global scopes**
+```
+User::withoutGlobalScopes()->get(); //except all global scopes
+User::withoutGlobalScopes(['active','name'])->get(); //expect only active,name global scopes
+```
+**Accessors & Mutators** <br/>
+**get , set** 
+```
+```
