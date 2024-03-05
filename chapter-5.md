@@ -1104,6 +1104,221 @@ User::withoutGlobalScopes()->get(); //except all global scopes
 User::withoutGlobalScopes(['active','name'])->get(); //expect only active,name global scopes
 ```
 **Accessors & Mutators** <br/>
-**get , set** 
+**get , set** <br/>
+**Accessors**
+```
+//Accessors
+protected function name() : Attribute{
+return Attribute::make(fn string($value) => strtoupper($value)
+);
+}
+// in Controller
+$user = User::find(1);
+return $user->name;
 ```
 ```
+protected function nameEmail() : Attribute
+    {
+        return Attribute::make(
+             fn() => $this->name . '.' . $this->email
+        );
+    }
+//in controller
+$user = User::find(1);
+return $user->nameEmail;
+```
+___________
+**Mutators**
+```
+protected function amount() : Attribute{
+return Attribute::make(
+ set : fn(string($value)) => $value > 10 ? "Good Amount" : "Bad Amount" 
+)
+}
+```
+```
+protected function workgroupName(): Attribute
+ {
+ return Attribute::make(
+ set: fn (string $value) => [
+        'email' => "{$value}@ourcompany.com",
+     ],
+    );
+ }
+```
+____________
+**Attribute casting**
+```
+//in Model User
+ protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+```
+___________
+**make ur own cast**
+```
+php artisan make:cast UpperString
+```
+in **App/casts/UpperString**
+```
+public function get(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return strtoupper($value);
+    }
+
+    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        return strtoupper($value);
+    }
+```
+**in Model User**
+```
+protected $cast = ['amount'=> \App\Casts\UpperString::class]
+```
+_____________
+**notifications**
+```
+php artisan make:notification OrderCreatedNotification
+```
+**In OrderCreatedNotification**
+```
+public function via($notifiable){
+return ['mail','database','broadcast']; //refer to channel , you can define multi channels
+}
+```
+**notifiable is an object of class , in this case (UserModel)** <br/>
+**if your channel is mail, you will define method named isMail and the same for database and broadcast** <br/>
+```
+public function ToMail($notifiable){
+}
+```
+**notify() VS notifyNow()**
+```
+$user->notify(New NotificationName);
+```
+**notifyNow if you put notifications in queue**
+_____________
+if you have multi users
+```
+$users = User::where('store_id',$order->store_id);
+//first way
+foreach($users as $user){
+$user->notify(New NotificationClass);
+}
+// second way
+Notification::send(,$users,New NotificationClass);
+```
+____________
+**Collections**
+Example 1.1
+```
+ $user = collect([1,2,3]);
+        $collection = $user->reject(function ($item){
+           return $item % 2 == 0;
+        });
+return $collection;
+```
+**output**
+```
+{
+    "0": 1,
+    "2": 3
+}
+```
+Example 1.2
+```
+  $user = collect([1,2,3]);
+        $collection = $user->map(function ($item){
+           return $item % 2 == 0;
+        });
+        return $collection;
+```
+**output**
+```
+[
+    false,
+    true,
+    false
+]
+```
+Example 1.3
+```
+$user = collect([1,2,3]);
+        $collection = $user->filter(function ($item){
+           return $item % 2 == 0;
+        });
+        return $collection;
+```
+**output**
+```
+{
+    "1": 2
+}
+```
+**Note: reject X filter**
+```
+$user = collect([1,2,3,4]);
+$collection = $user->filter(function ($item){
+      return $item % 2 == 0;
+      })->map(function ($item){
+      return $item*10;
+      })->sum();
+return $collection;
+```
+**output**
+```
+60
+```
+**difference between collection and lazy collections**<br/>
+Normal Collection **all()**
+```
+ $users = User::all()->filter(function($user){
+            return $user->id % 2 == 0;
+        });
+return $users;
+```
+Lazy Collection **cursor()**
+```
+$users = User::cursor()->filter(function($user){
+            return $user->id % 2 != 0;
+        });
+return $users;
+```
+_____
+**To return all ids from db**
+```
+$users = User::all();
+return $users->modelKeys();
+```
+___________
+**custom collections** => make ur own collection in ur model 
+1. **At first create collections folder in app, then create new class named OrderCollection for example**
+2. in OrderCollection
+ ```
+use Illuminate\Database\Eloquent\Collection;
+
+class OrderCollection extends Collection
+{
+   public function filterUsers()
+   {
+       return $this->filter(function ($user){
+           return $user->id % 2 != 0;
+       });
+   }
+}
+```
+3. in model
+   ```
+   public function newCollection(array $models = []) : Collection
+  {
+      return new OrderCollection($models);
+  }
+   ```
+**don't forgot to custom Collection to method**
+4. in Controller
+```
+$users = User::all();
+return $users->filterusers();
+```
+(larvel docs)[https://laravel.com/docs/10.x/collections#creating-collections]
