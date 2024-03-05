@@ -1308,14 +1308,17 @@ class OrderCollection extends Collection
    }
 }
 ```
+
 3. in model
-   ```
+   
+```
    public function newCollection(array $models = []) : Collection
   {
       return new OrderCollection($models);
   }
-   ```
+```
 **don't forgot to custom Collection to method**
+
 4. in Controller
 ```
 $users = User::all();
