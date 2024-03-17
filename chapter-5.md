@@ -1325,3 +1325,148 @@ $users = User::all();
 return $users->filterusers();
 ```
 (larvel docs)[https://laravel.com/docs/10.x/collections#creating-collections]
+____________________
+## Relationship
+
+**hasOne** <br/>
+**create() & createMany()**
+   ```
+   $contact = Contact::find(1);
+   //$phone = $contact->phone()->create(['number'=>'2222222222']);
+   $phone = $contact->phone()->createMany([['number'=>'44444444444'],['number'=>'2222222222']]);
+   return $phone;
+   ```
+__________
+**reduce()** => will iterate many times to get one value
+```
+$contact = Contact::find(2); // Assuming you have the $contactId variable defined
+$totalPhoneSum = $contact->phones->reduce(function ($carry, $phone) {
+    return $carry + (int)$phone->number;
+}, 0);
+return $totalPhoneSum;
+```
+
+**first get all phones related to contact with contact_id=2 then sum them**
+_____________
+**fiter()** => filter data when condition is true
+```
+ $totalPhoneSum = $contact->phones->filter(function ($phone) {
+         return $phone->number == '0';
+        });
+return $totalPhoneSum;
+```
+**Note : Make sure, filter and reduce must have relationship hasMany()**
+______________
+To link or unlink with parent and child in relationships use **associate** & **dissociate**
+```
+$contact = Contact::find(2); 
+$phone = Phone::find(3);
+if ($contact && $phone) {
+     $phone->contact()->associate();
+     $phone->save();
+//$phone->contact()->dissociate();
+//$phone->save();
+}
+```
+_______________
+**User::has('method_name in relationship')**
+```
+return Contact::has('phones')->get();
+//Or
+return Contact::has('phones','=','2')->get(); // 2 refers to no. of rows
+```
+Or use Nested criteria
+```
+//Make relationship between user,contact and phone
+ User::has('contacts.phones')->get();
+```
+_______________
+**Note : if you want to filter phones**
+<br/>
+**whereHas('method in relationship',clourse function)** <br/>
+**whereRelation('method in relationships','column name in other table','LIKE',''Regular Expression)**
+```
+ return Contact::whereHas('phones',function($query){
+            return $query->where('number','LIKE','%745%');
+        })->get();
+```
+Or
+```
+return Contact::whereRelation('phones','number','LIKE','%4%')->get();
+```
+_________________
+**Has one of many** <br/>
+**imagine you have one-to-many relationship and you want to retrive last or old column** <br/>
+**lastestOfMany() & oldestOfMany()** <br/>
+```
+public function contact() : HasOne
+{
+  return $this->hasOne(Contact::class)->lastestOfMany();
+}
+```
+**ofMany('column','aggregate')**
+```
+public function contact() : HasOne
+{
+  return $this->hasOne(Contact::class)->ofMany('id','min');
+}
+```
+**Note: This will return the minimum ID of the matching relationship.**
+______________
+**Has Through of Many**<br/>
+if you have users ,contacts ,phones tables <br/>
+**if each user has many contacts and each contacts has many phones how to access phones from users model?** <br/>
+**Note : hasManyThrough(); & through()->has();**
+```
+ public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+    public function phones(){
+        return $this->through('contacts')->has('phones');
+        //or traditional way
+        return $this->hasManyThrough(Phone::class,Contact::class);
+    }
+```
+**Note : hasOneThrough(); & through()->has(); like prev methods but for one-to-one relationship**
+_________
+**Many-To-Many**<br/>
+**"To iterate through the data in contacts, note that you mustn't use 'return'; use 'echo' instead."**
+```
+$user = User::find(1);
+        $users = $user->contacts->each(function ($contact) {
+            echo $contact->name . "<br>";
+        });
+```
+**"It's better to store less data in the pivot table, but in some cases, you will need to store more data. In this case, you will use 'withPivot()'.** 
+```
+public function contacts()
+{
+ return $this->belongsToMany(Contact::class)
+ ->withTimestamps()
+ ->withPivot('status', 'preferred_greeting');
+}
+```
+```
+$user = User::find(4);
+$users = $user->books->each(function ($book) {
+   echo $book->pivot . "<br>";
+});
+```
+**prev code will return data in pivot table**
+________
+**as() in many-To-many()**
+```
+// in Model
+public function books()
+{
+return $this->belongsToMany(Book::class)
+ ->withTimestamps()
+ ->as('bookItems');
+}
+// in controller
+$user = User::find(4);
+$users = $user->books->each(function ($book){
+   echo $book->bookItems."<br>";
+});
+```
