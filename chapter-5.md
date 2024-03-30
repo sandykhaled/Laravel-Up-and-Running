@@ -1455,7 +1455,7 @@ $users = $user->books->each(function ($book) {
 ```
 **prev code will return data in pivot table**
 ________
-**as() in many-To-many()**
+**as() in many-To-many()** <br/> To name pivot table
 ```
 // in Model
 public function books()
@@ -1468,5 +1468,49 @@ return $this->belongsToMany(Book::class)
 $user = User::find(4);
 $users = $user->books->each(function ($book){
    echo $book->bookItems."<br>";
+});
+```
+____________
+**save()**
+```
+$user = User::first();
+$contact = Contact::first();
+$user->contacts()->save($contact,['status'=>'inactive']);
+```
+_______
+**attach()**
+```
+$user->contacts()->attach([
+1 => ['status' => 'donor'],
+2 => ['status' => 'active'],
+]);
+```
+**detach()**
+```
+$user->contacts()->detach(1);
+```
+**toggle()** <br/>
+The many-to-many relationship also provides a toggle method which "toggles" the attachment status of the given related model IDs. If the given ID is currently attached, it will be detached. Likewise, if it is currently detached, it will be attached:
+```
+$user->contacts()->toggle(1);
+```
+_____
+**updateExistingPivot()**
+```
+$user->contacts()->updateExistingPivot(2,['status'=>'inactive']);
+```
+_____
+**sync()** => 
+to detach all then attach()
+```
+$user->contacts()->sync([1,2,3]);
+```
+__________
+**Polymorphic**
+[Video](https://youtu.be/y7ucAWW55l8?si=c4ZdqG1bqwya6HDs) 
+```
+$user = User::find(3);
+$user->images()->each(function ($img){
+     echo  '<br>'.$img->url.'png';
 });
 ```
