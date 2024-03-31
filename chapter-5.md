@@ -1514,3 +1514,27 @@ $user->images()->each(function ($img){
      echo  '<br>'.$img->url.'png';
 });
 ```
+___________
+**Many-To-Many Polymorphic**
+<br/>
+I have tag table ,posts , videos tables and taggable
+<br/>
+taggable_id => refers to model primary_id </br>
+tag_id refers to tag model primary_id </br>
+[Eloquent Polymorphic Many-to-Many](https://youtu.be/b1fYxZhwQHc?si=cgVXxnOV7kmmH-ua)
+_________________
+**touches** <br/>
+**Note : you must use save() to update**
+```
+ $contact = Contact::find(1);
+        $phoneNumbers = $contact->phoneNumber;
+        foreach ($phoneNumbers as $phoneNumber) {
+            $phoneNumber->number = '123456';
+
+            $phoneNumber->save();
+        }
+```
+[laravel Docs](https://laravel.com/docs/11.x/eloquent-relationships#touching-parent-timestamps)
+__________
+**load() & loadMissing()** <br/> <br/>
+**In summary, if you want to ensure that all relationships are loaded fresh, including those that might have been loaded before, you would use load(). However, if you want to load only the relationships that haven't been loaded yet to avoid unnecessary queries, you would use loadMissing().**
