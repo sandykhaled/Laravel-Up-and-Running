@@ -1538,3 +1538,6 @@ _________________
 __________
 **load() & loadMissing()** <br/> <br/>
 **In summary, if you want to ensure that all relationships are loaded fresh, including those that might have been loaded before, you would use load(). However, if you want to load only the relationships that haven't been loaded yet to avoid unnecessary queries, you would use loadMissing().**
+________
+**withCount()**
+[laravelDaily](https://youtu.be/qEjnHuHHGtA?si=lvuj4Wnm0Ibhl19K)
