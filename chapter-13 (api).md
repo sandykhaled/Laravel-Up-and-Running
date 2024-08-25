@@ -6,7 +6,10 @@ dd(Dog::all()); //return Collection   //Illuminate\Database\Eloquent\Collection
 
 <br/>
 **Note - 2**
+
 ```
 php artisan make:model Dog --all
 ```
+
+<br/>
 **--all flag make resource controller - (create-update)Requset - Model - Migration - Factory - Seeder**
