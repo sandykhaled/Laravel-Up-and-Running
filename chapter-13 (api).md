@@ -141,6 +141,7 @@ Route::get('dogs',function (){
 _______________
 
 **Note-5**
+<br/>
 **toArray() in Model** 
 
 ```
