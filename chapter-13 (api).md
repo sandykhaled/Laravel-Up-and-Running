@@ -108,8 +108,8 @@ ______________________________
 
 **Filter Data**
 <br/>
-1. only one
-   ```
+**1. Only One**
+```
    Route::get('dogs', function () {
     $query = Dog::query();
     $query->when(request()->filled('filter'),function ($query){
@@ -120,8 +120,9 @@ ______________________________
     return $query->paginate(20);
 });
 
-   ```
-2. Multi-Data
+```
+**2. Multi-Data**
+
 ```
 Route::get('dogs',function (){
     $query = Dog::query();
