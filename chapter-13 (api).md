@@ -18,8 +18,10 @@ php artisan make:model Dog --all
 
 <br/>
 **Note - 3** 
+
 _____________________________
 **Default paginate()**
+
 ```
 return Dog::paginate(2);
 ```
