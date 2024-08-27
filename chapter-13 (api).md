@@ -17,9 +17,12 @@ php artisan make:model Dog --all
 **--all flag make resource controller - (create-update)Requset - Model - Migration - Factory - Seeder**
 
 <br/>
+
+________________________________
 **Note - 3** 
 
-_____________________________
+<br/>
+
 **Default paginate()**
 
 ```
