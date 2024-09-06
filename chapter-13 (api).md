@@ -166,5 +166,40 @@ class Dog extends Model
 }
 
 ```
+________________
 
+**Note - 6** <br/>
+**Difference between Collection and resource?**
+```
+// In App\Http\Resources\DogCollection
+public function toArray(Request $request): array
+    {
+        return $this->collection->map(function ($dog) {
+            return [
+                'id' => $dog->id,
+                'name' => $dog->name,
+                'age' => $dog->age,
+                // other attributes
+            ];
+        })->toArray();
+    }
+//Or
+public function toArray(Request $request): array
+    {
+        return ['data'=>$this->collection];
+    }
+```
+```
+// In App\Http\Resources\DogResource
+ public function toArray(Request $request): array
+    {
+        return [
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'breed'=>$this->breed
+        ];
+    }
+```
+_______________________
+**Note - 7**
 
